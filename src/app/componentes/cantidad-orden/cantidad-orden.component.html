@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-title color="primary" floating >Cantidad</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+
+
+  <ion-item> 
+    <h2>Seleccione una Cantidad: </h2>
+  </ion-item>
+
+  <ion-item> 
+      <ion-label text-center>{{nombre}}</ion-label>
+  </ion-item>
+
+  <ion-item>
+    <ion-img [src]="img">  </ion-img>
+  </ion-item>
+  <br>
+  <ion-item>
+    <ion-button shape="round" fill="outline"  position = "fixed"  slot ="end" (click)="Aumentar1()" >
+      <ion-icon slot="icon-only" name="add" ></ion-icon>
+    </ion-button>
+    <ion-button shape="round" fill="outline"  position = "fixed"  slot="end" (click)="Disminuir1()">
+      <ion-icon slot="icon-only" name="remove" ></ion-icon>
+    </ion-button>
+        <ion-input value="{{cantidad_chacha}}" ></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label slot="end">Total Bs.{{precio_total}}</ion-label>
+  </ion-item>
+
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-button shape="round" fill="outline"  position = "fixed" slot ="start"  (click)="AgregarLista()" >
+          <ion-icon slot="icon-only" name="undo" size="small"></ion-icon>
+    </ion-button>
+    <ion-button shape="round" fill="outline"  position = "fixed" slot="end" (click)="MandarDetalle()">
+        <ion-icon slot="icon-only" name="checkmark" size="large"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>

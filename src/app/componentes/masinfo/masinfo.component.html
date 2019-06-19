@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-button slot="start" fill = "clear" (click) = 'Cerrar()'>
+      <ion-icon name="close"></ion-icon>
+    </ion-button>
+    <ion-title > MAS INFORMACION </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content padding >
+ 
+  <ion-card>
+      <img src= "assets/img/logo_chachas.png" /> 
+  </ion-card>
+
+ <ion-card>
+  <ion-card-content>
+      <ion-card-title><b>{{ nombresuc }} </b> </ion-card-title>
+     <ion-item>
+      <ion-icon name="home" slot="start"></ion-icon>
+       <ion-label>
+         <h2><b> DIRECCIÓN </b></h2>
+         <p>  {{ direccionsuc }}  </p>
+       </ion-label>
+    </ion-item>
+
+    <ion-item>
+     <ion-icon name="call" slot="start"></ion-icon>
+     <ion-label>
+       <h2><b> TELÉFONO </b></h2>
+       <p>  {{ telefonosuc }}  </p>
+      </ion-label>
+      </ion-item>
+
+     <ion-item>
+      <ion-icon name="time" slot="start"></ion-icon>
+      <ion-label>
+          <h2><b> HORARIOS</b></h2>
+          <p> Lun-Sab(8:00-22:00) / Dom(9:00-15:00) </p>
+      </ion-label>
+    </ion-item>
+    
+    </ion-card-content>
+        
+</ion-card>
+     <ion-button  expand = "block" (click)="OpenUrl()">ABRIR EN GOOGLE MAPS</ion-button>   
+</ion-content>
