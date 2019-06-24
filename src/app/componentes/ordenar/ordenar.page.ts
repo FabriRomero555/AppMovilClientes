@@ -44,7 +44,7 @@ export class OrdenarPage implements OnInit  {
     //console.log(this.orden)
     //this.pedidoService.Hola();
     //this.pedidoService.CrearPedido(this.telefono, this.referencia)
-
+    this.pedidoService.registrarPedido(this.telefono, this.referencia);
     this.router.navigate(['/menu-orden']);
   }
 }

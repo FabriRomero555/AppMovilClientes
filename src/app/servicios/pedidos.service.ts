@@ -3,6 +3,7 @@ import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/fire
 import { orden } from '../modelos/orden'
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { unescapeIdentifier } from '@angular/compiler';
 
 
 @Injectable({
@@ -28,5 +29,22 @@ export class PedidosService {
     
     return this.ordenesCollection.add(orden)
   }
+  registrarPedido(telefono: string ,nombreMoto: string) {
+    
+    return new Promise((resolve, reject) => {  
+      this.db.collection('pedido').add({
+        UIDMoto: 'moto',
+        nombreMototaxi: nombreMoto,
+        telefono: telefono, 
+        entregado: false,
+        
+        
+      }).catch(err => reject(err));
 
+     // alert("Pedido realizado");
+      
+      
+    });
+    
+  }
 }
