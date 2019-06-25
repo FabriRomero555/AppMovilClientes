@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router'
-import { orden } from "../../modelos/orden";
-import { PedidosService } from "../../servicios/pedidos.service";
-// verificar si la direccion esta bien 
-import { ChatsService, DetalleChacha } from "../../servicios/Chats.service";
-
-
+//import { orden } from "../../modelos/orden";
+import { PedidosService , pedido} from "../../servicios/pedidos.service";
+//import { ChatsService, DetalleChacha } from "../../servicios/Chats.service";
+import { ModalController } from "@ionic/angular";
+import { DetallesComponent } from "../../componentes/detalles/detalles.component";
 
 
 @Component({
@@ -19,19 +18,15 @@ export class OrdenarPage implements OnInit  {
 
   private referencia : string;
   private telefono : string;
-  public orden : orden
+  //public orden : orden
   
   
-  constructor(public router : Router, public chatsservice : ChatsService, public pedidoService:PedidosService) { }
+  constructor(
+    public router : Router,
+     public pedidoService:PedidosService,
+     private modal : ModalController) {}
 
   ngOnInit() {
-
-    //this.orden.referencia= this.referencia;
-    //this.orden.telefono = this.telefono;
-
-    this.chatsservice.getChats().subscribe(DetalleTipoEmpanada => {
-      this.chachaslist = DetalleTipoEmpanada;
-    })
   }
 
   VolverHome(){
@@ -39,19 +34,8 @@ export class OrdenarPage implements OnInit  {
   }
 
   EmpezarPedido(){
-    //console.log(this.orden.referencia)
-    
-    //console.log(this.orden)
-    //this.pedidoService.Hola();
-    //this.pedidoService.CrearPedido(this.telefono, this.referencia)
+  
     this.pedidoService.registrarPedido(this.telefono, this.referencia);
     this.router.navigate(['/menu-orden']);
   }
 }
-
-// export class Page {
-//   public ocultar1: boolean = false;
-//   accion1(){
-//     this.ocultar1 = !this.ocultar1;
-//   }
-// }

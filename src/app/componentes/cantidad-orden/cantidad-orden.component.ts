@@ -3,7 +3,7 @@ import {NavParams, ModalController} from '@ionic/angular';
 import {Router} from '@angular/router'
 import { DetallesComponent } from "../detalles/detalles.component";
 import { detalle } from "../../modelos/detalle";
-
+import { PedidosService } from "../../servicios/pedidos.service"
 @Component({
   selector: 'app-cantidad-orden',
   templateUrl: './cantidad-orden.component.html',
@@ -12,18 +12,21 @@ import { detalle } from "../../modelos/detalle";
 export class CantidadOrdenComponent implements OnInit {
 
   public detallesList = [
-    'hola', 'holitas', 'holotas'
+   
   ];
 
-  public detalle : detalle;
+  public detalle : string = '3 Chachas de Carne';
 
   public precio : number;
   private cantidad_chacha : number;
   private precio_total : number;
   cant : number;
   nombre : string
-
-  constructor(private navparams : NavParams, private modal : ModalController, public router : Router) { }
+    
+  constructor(private navparams : NavParams,
+     private modal : ModalController,
+      public router : Router,
+      private pedidosService : PedidosService) { }
 
   ngOnInit() {
 
@@ -53,12 +56,15 @@ export class CantidadOrdenComponent implements OnInit {
   }
 
   MandarDetalle(){
-    this.router.navigate(['/pedido']);
+
+  this.pedidosService.EnviarDetalleaFB(this.cantidad_chacha.toString() , 'DPDIWSZjrrPrlPCfoIq8')
     
-    
-    console.log(this.detallesList);
-    console.log(this.cantidad_chacha);
-    console.log(this.precio_total);
+
+  this.router.navigate(['/pedido']);
+
+  console.log(this.detallesList);
+  console.log(this.cantidad_chacha);
+  console.log(this.precio_total);
 
     this.modal.dismiss();
   }
