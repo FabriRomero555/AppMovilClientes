@@ -14,12 +14,12 @@ export class CantidadOrdenComponent implements OnInit {
   public detallesList = [
    
   ];
-
-  public detalle : string = '3 Chachas de Carne';
-
-  public precio : number;
   private cantidad_chacha : number;
+  public precio : number;
   private precio_total : number;
+
+  public detalle : string;
+
   cant : number;
   nombre : string
     
@@ -34,6 +34,7 @@ export class CantidadOrdenComponent implements OnInit {
     this.nombre = this.navparams.get('nombre');
     this.cantidad_chacha = 1;
     this.precio_total = (this.cantidad_chacha * this.precio) 
+    this.detalle = (this.cantidad_chacha.toString() + this.nombre);
 
   }
 //recuperar cada que cambia por el teclado la cantidad que se pone
@@ -46,18 +47,21 @@ export class CantidadOrdenComponent implements OnInit {
     //limite de pedir chachas???
       this.cantidad_chacha = this.cantidad_chacha + 1;
       this.precio_total = (this.cantidad_chacha * this.precio);
+      this.detalle = (this.cantidad_chacha.toString() + this.nombre);
   }
 
   Disminuir1(){
     if  (this.cantidad_chacha >> 1 ){
     this.cantidad_chacha = this.cantidad_chacha - 1;
-    this.precio_total = (this.cantidad_chacha * this.precio);}
+    this.precio_total = (this.cantidad_chacha * this.precio);
+    this.detalle = (this.cantidad_chacha.toString() + this.nombre);}
     else{ console.log("no se puede pedir menos de 1 chacha");}
   }
 
   MandarDetalle(){
+    
 
-  this.pedidosService.EnviarDetalleaFB(this.cantidad_chacha.toString() , 'DPDIWSZjrrPrlPCfoIq8')
+  this.pedidosService.EnviarDetalleaFB(this.detalle , 'DPDIWSZjrrPrlPCfoIq8')
     
 
   this.router.navigate(['/pedido']);
