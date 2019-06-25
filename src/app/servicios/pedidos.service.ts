@@ -11,33 +11,30 @@ import { unescapeIdentifier } from '@angular/compiler';
 })
 export class PedidosService {
 
+  fecha : Date = new Date();
   private ordenesCollection : AngularFirestoreCollection<orden>
-  //private orden : Observable<orden>
+  
 
   constructor(public  db : AngularFirestore) {
     this.ordenesCollection = db.collection<orden>('pedidos')
 
-    console.log('llega la servicio')
+    //console.log('llega la servicio')
    }
 
-  public Hola(){
-    console.log("holitas")
-  }
-
-  public CrearPedido( orden : orden )
-  {
-    
-    return this.ordenesCollection.add(orden)
-  }
-  registrarPedido(telefono: string ,nombreMoto: string) {
+  registrarPedido(telefono: string ,nombre: string) {
     
     return new Promise((resolve, reject) => {  
-      this.db.collection('pedido').add({
+      this.db.collection('pedidos').add({
         UIDMoto: 'moto',
-        nombreMototaxi: nombreMoto,
-        telefono: telefono, 
+        latitudCliente : '00.00',
+        longitudCliente : '00.00',
+        nombreCliente: nombre,
+        telefonoCliente: telefono, 
         entregado: false,
+        fecha : (this.fecha.getDate().toString() +'-'+ this.fecha.getMonth().toString() +'-'+ this.fecha.getFullYear().toString()) 
         
+        
+     
         
       }).catch(err => reject(err));
 
