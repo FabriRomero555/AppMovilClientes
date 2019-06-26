@@ -5,22 +5,14 @@
 
 
 <ion-content padding>
-<ion-list>
-<ion-item *ngFor = "let DetalleTipoEmpanada of chachaslist">
-<ion-avatar slot = "start">
-    <ion-img [src]="DetalleTipoEmpanada.Imagen"> </ion-img>
-</ion-avatar>
-<ion-label>
-  <h3><b>{{DetalleTipoEmpanada.Nombre_Empanada}}</b></h3>
-
-  <div class="ion-text-right">
-      <p >Precio(Bs.)</p>
-      <h3>{{DetalleTipoEmpanada.Precio_Empanada}}</h3>
+    <div *ngIf="pedido">
+        <ion-card *ngFor="let detalle of pedido.detalles">
+          <ion-card-content>
+            {{detalle.cantidad_chacha}}
+            {{detalle.nombre_chacha}}
+          </ion-card-content>
+        </ion-card>
     </div>
-</ion-label>
-</ion-item> 
-
-</ion-list>
 
 
 </ion-content>
