@@ -12,6 +12,7 @@ import { PedidosService } from "../../servicios/pedidos.service";
 export class PedidoPage implements OnInit {
 
   public detallesList = [];
+  public pedido : any;
 
   constructor(public router : Router,
     public pedidosService : PedidosService,
@@ -19,8 +20,11 @@ export class PedidoPage implements OnInit {
 
   ngOnInit() {
 
-    this.pedidosService.GetPedido('aidLu4g9XAEu8BAw4zn3');
-    //this.detallesList = this.cantidadOrdenComponent.detallesList
+    this.pedidosService.GetPedidoFB('aidLu4g9XAEu8BAw4zn3').subscribe( pedido => {
+      console.log(pedido);
+      this.pedido = pedido;
+})
+    
   }
 
   IraConfirmar(){

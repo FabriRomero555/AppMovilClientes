@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {NavParams, ModalController} from '@ionic/angular';
 import {Router} from '@angular/router'
-import { DetallesComponent } from "../detalles/detalles.component";
 import { detalle } from "../../modelos/detalle";
 import { PedidosService } from "../../servicios/pedidos.service"
-import { PedidoPage } from '../pedido/pedido.page';
+
 @Component({
   selector: 'app-cantidad-orden',
   templateUrl: './cantidad-orden.component.html',

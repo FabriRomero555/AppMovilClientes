@@ -5,11 +5,14 @@
 
 
 <ion-content padding>
-<ul>
-  <li >
-
-  </li>
-</ul>
+    <div *ngIf="pedido">
+        <ion-card *ngFor="let detalle of pedido.detalles">
+          <ion-card-content>
+            {{detalle.cantidad_chacha}}
+            {{detalle.nombre_chacha}}
+          </ion-card-content>
+        </ion-card>
+    </div>
 
 
 </ion-content>

@@ -28,7 +28,7 @@ export class PedidosService {
     this.ordenesCollection = db.collection<orden>('pedidos')
    }
 
-  registrarPedidoFB(telefono: string ,nombre: string) { 
+  RegistrarPedidoFB(telefono: string ,nombre: string) { 
     return new Promise((resolve, reject) => {  
       this.db.collection('pedidos').add({
         UIDMoto: 'motoid',
@@ -47,11 +47,6 @@ export class PedidosService {
 
       }).catch(err => reject(err));        
     });
-  }
-
-  GetPedido(pedidoid : string){
-    return this.db.collection('pedidos').doc(pedidoid).valueChanges()
-    //obtiene un observable
   }
   
   EnviarDetalleaFB(detalle : detalle , pedido_id : string, precio_pedido : number){
@@ -72,6 +67,8 @@ export class PedidosService {
     })
   }
 
-  
+  GetPedidoFB( pedido_id : string){
+    return this.db.collection('pedidos').doc(pedido_id).valueChanges()
+}
 
 }
