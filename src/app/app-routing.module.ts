@@ -13,7 +13,8 @@ const routes: Routes = [
   { path: 'cantidad-orden', loadChildren: './componentes/cantidad-orden/cantidad-orden.module#CantidadOrdenPageModule' },
   { path: 'pedido', loadChildren: './componentes/pedido/pedido.module#PedidoPageModule' },
   { path: 'confirmacion', loadChildren: './componentes/confirmacion/confirmacion.module#ConfirmacionPageModule' },
-  { path: 'masinfo', loadChildren: './componentes/masinfo/masinfo.module#MasinfoPageModule' },
+  { path: 'masinfo', loadChildren: './componentes/masinfo/masinfo.module#MasinfoPageModule' },  { path: 'pruebarest', loadChildren: './componentes/pruebarest/pruebarest.module#PruebarestPageModule' },
+
 ];
 
 @NgModule({
