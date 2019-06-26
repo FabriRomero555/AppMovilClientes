@@ -25,7 +25,7 @@ export class ConfirmacionPage implements OnInit {
   }
 
   TerminarOrden(){
-      this.pedidosService.SetDireccionPedido('aidLu4g9XAEu8BAw4zn3', this.callePrincipal, this.calleAux1, this.calleAux2, this.referenciaCasa, this.numeroCasa)
+      this.pedidosService.SetDireccionPedidoFB('aidLu4g9XAEu8BAw4zn3', this.callePrincipal, this.calleAux1, this.calleAux2, this.referenciaCasa, this.numeroCasa)
       this.router.navigate(['/final']);
   }
 

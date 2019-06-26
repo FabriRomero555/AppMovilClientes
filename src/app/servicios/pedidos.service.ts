@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { unescapeIdentifier } from '@angular/compiler';
 import { firestore } from 'firebase';
+import { detalle } from "../modelos/detalle";
 
 export interface pedido{
   id : string,
@@ -27,7 +28,7 @@ export class PedidosService {
     this.ordenesCollection = db.collection<orden>('pedidos')
    }
 
-  registrarPedido(telefono: string ,nombre: string) { 
+  registrarPedidoFB(telefono: string ,nombre: string) { 
     return new Promise((resolve, reject) => {  
       this.db.collection('pedidos').add({
         UIDMoto: 'motoid',
@@ -48,22 +49,18 @@ export class PedidosService {
     });
   }
 
-  /*getPedidoid(pedidoid : string){
-    return this.db.collection('pedidos').doc(pedidoid).valueChanges()
-  }*/
-
   GetPedido(pedidoid : string){
     return this.db.collection('pedidos').doc(pedidoid).valueChanges()
     //obtiene un observable
   }
   
-  EnviarDetalleaFB(detallePedido : string , pedido_id : string, precio_pedido : number){
+  EnviarDetalleaFB(detalle : detalle , pedido_id : string, precio_pedido : number){
       this.db.collection('pedidos').doc(pedido_id).update({
-      detalles : firestore.FieldValue.arrayUnion(detallePedido),
-      precio_pedido : precio_pedido
+      detalles : firestore.FieldValue.arrayUnion(detalle),
+      precio_pedido : precio_pedido //aun no funciona precio de pedido
     })
 }
-  SetDireccionPedido(pedido_id : string, callePrincipal : string , calleAux1 : string , calleAux2 : string, referenciaCasa : string,
+  SetDireccionPedidoFB(pedido_id : string, callePrincipal : string , calleAux1 : string , calleAux2 : string, referenciaCasa : string,
     numeroCasa : string)
   {
     this.db.collection('pedidos').doc(pedido_id).update({
@@ -72,7 +69,6 @@ export class PedidosService {
       calleAux2 : calleAux2,
       referenciaCasa : referenciaCasa,
       numeroCasa : numeroCasa
-
     })
   }
 

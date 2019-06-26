@@ -35,7 +35,7 @@ export class OrdenarPage implements OnInit  {
 
   EmpezarPedido(){
   
-    this.pedidoService.registrarPedido(this.telefono, this.referencia);
+    this.pedidoService.registrarPedidoFB(this.telefono, this.referencia);
     this.router.navigate(['/menu-orden']);
   }
 }

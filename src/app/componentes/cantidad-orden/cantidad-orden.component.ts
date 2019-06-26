@@ -17,7 +17,7 @@ export class CantidadOrdenComponent implements OnInit {
   public precio_chacha : number;
   private precio_detalle : number;
   public nombre_chacha : string
-  public detalle : string;
+  //public detalle : string;
   public precio_pedido : number;
 
     
@@ -32,7 +32,7 @@ export class CantidadOrdenComponent implements OnInit {
     this.nombre_chacha = this.navparams.get('nombre');
     this.cantidad_chacha = 1;
     this.precio_detalle = (this.cantidad_chacha * this.precio_chacha) 
-    this.detalle = (this.cantidad_chacha.toString() +' '+ this.nombre_chacha);
+    //this.detalle = (this.cantidad_chacha.toString() +' '+ this.nombre_chacha);
     //this.precio_pedido = this.pedidosService.GetPrecio('DPDIWSZjrrPrlPCfoIq8');
 
   }
@@ -46,7 +46,7 @@ export class CantidadOrdenComponent implements OnInit {
     //limite de pedir chachas???
       this.cantidad_chacha = this.cantidad_chacha + 1;
       this.precio_detalle = (this.cantidad_chacha * this.precio_chacha);
-      this.detalle = (this.cantidad_chacha.toString() +' '+ this.nombre_chacha);
+      //this.detalle = (this.cantidad_chacha.toString() +' '+ this.nombre_chacha);
        
   }
 
@@ -54,17 +54,25 @@ export class CantidadOrdenComponent implements OnInit {
     if  (this.cantidad_chacha >> 1 ){
     this.cantidad_chacha = this.cantidad_chacha - 1;
     this.precio_detalle = (this.cantidad_chacha * this.precio_chacha);
-    this.detalle = (this.cantidad_chacha.toString() +' '+ this.nombre_chacha);}
+    //this.detalle = (this.cantidad_chacha.toString() +' '+ this.nombre_chacha);
+    }
     else{ console.log("no se puede pedir menos de 1 chacha");}
   }
 
   MandarDetalle(){
+
+    const detalle : detalle = {
+        nombre_chacha : this.nombre_chacha,
+        cantidad_chacha : this.cantidad_chacha,
+     }
+
+
     
   this.precio_pedido = this.precio_pedido + this.precio_detalle;
 
-  this.detallesList.push(this.detalle.toString())  
+  this.detallesList.push(detalle)  
 
-  this.pedidosService.EnviarDetalleaFB(this.detalle , 'aidLu4g9XAEu8BAw4zn3', this.precio_pedido)
+  this.pedidosService.EnviarDetalleaFB(detalle , 'aidLu4g9XAEu8BAw4zn3', this.precio_pedido)
 
   this.router.navigate(['/pedido']);
 
@@ -87,7 +95,7 @@ export class CantidadOrdenComponent implements OnInit {
 
   }
 
-  AgregarLista(){
-    this.detallesList.push(this.detalle.toString())
+  Cancelar(){
+    this.modal.dismiss();
   }
 }
