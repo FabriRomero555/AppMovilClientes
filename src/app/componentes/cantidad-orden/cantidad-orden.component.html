@@ -1,10 +1,10 @@
 <ion-header>
-  <ion-toolbar>
-      <ion-title color="primary" floating >Cantidad</ion-title>
+  <ion-toolbar color = "primary">
+      <ion-title ion-text color="light" floating >Cantidad</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content padding color ="secondary">
 
 
 
@@ -36,11 +36,11 @@
 </ion-content>
 
 <ion-footer>
-  <ion-toolbar>
-    <ion-button shape="round" fill="outline"  position = "fixed" slot ="start"  (click)="AgregarLista()" >
+  <ion-toolbar color = "primary">
+    <ion-button color = "light" shape="round" fill="outline"  position = "fixed" slot ="start"  (click)="AgregarLista()" >
           <ion-icon slot="icon-only" name="undo" size="small"></ion-icon>
     </ion-button>
-    <ion-button shape="round" fill="outline"  position = "fixed" slot="end" (click)="MandarDetalle()">
+    <ion-button color = "light" shape="round" fill="outline"  position = "fixed" slot="end" (click)="MandarDetalle()">
         <ion-icon slot="icon-only" name="checkmark" size="large"></ion-icon>
     </ion-button>
   </ion-toolbar>
