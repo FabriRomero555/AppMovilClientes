@@ -4,6 +4,7 @@ import {Router} from '@angular/router'
 import { DetallesComponent } from "../detalles/detalles.component";
 import { detalle } from "../../modelos/detalle";
 import { PedidosService } from "../../servicios/pedidos.service"
+import { PedidoPage } from '../pedido/pedido.page';
 @Component({
   selector: 'app-cantidad-orden',
   templateUrl: './cantidad-orden.component.html',
@@ -11,17 +12,14 @@ import { PedidosService } from "../../servicios/pedidos.service"
 })
 export class CantidadOrdenComponent implements OnInit {
 
-  public detallesList = [
-   
-  ];
+  public detallesList = [];
   private cantidad_chacha : number;
-  public precio : number;
-  private precio_total : number;
-
+  public precio_chacha : number;
+  private precio_detalle : number;
+  public nombre_chacha : string
   public detalle : string;
+  public precio_pedido : number;
 
-  cant : number;
-  nombre : string
     
   constructor(private navparams : NavParams,
      private modal : ModalController,
@@ -30,11 +28,12 @@ export class CantidadOrdenComponent implements OnInit {
 
   ngOnInit() {
 
-    this.precio = this.navparams.get('precio');
-    this.nombre = this.navparams.get('nombre');
+    this.precio_chacha = this.navparams.get('precio');
+    this.nombre_chacha = this.navparams.get('nombre');
     this.cantidad_chacha = 1;
-    this.precio_total = (this.cantidad_chacha * this.precio) 
-    this.detalle = (this.cantidad_chacha.toString() + this.nombre);
+    this.precio_detalle = (this.cantidad_chacha * this.precio_chacha) 
+    this.detalle = (this.cantidad_chacha.toString() +' '+ this.nombre_chacha);
+    //this.precio_pedido = this.pedidosService.GetPrecio('DPDIWSZjrrPrlPCfoIq8');
 
   }
 //recuperar cada que cambia por el teclado la cantidad que se pone
@@ -46,29 +45,34 @@ export class CantidadOrdenComponent implements OnInit {
   Aumentar1(){
     //limite de pedir chachas???
       this.cantidad_chacha = this.cantidad_chacha + 1;
-      this.precio_total = (this.cantidad_chacha * this.precio);
-      this.detalle = (this.cantidad_chacha.toString() + this.nombre);
+      this.precio_detalle = (this.cantidad_chacha * this.precio_chacha);
+      this.detalle = (this.cantidad_chacha.toString() +' '+ this.nombre_chacha);
+       
   }
 
   Disminuir1(){
     if  (this.cantidad_chacha >> 1 ){
     this.cantidad_chacha = this.cantidad_chacha - 1;
-    this.precio_total = (this.cantidad_chacha * this.precio);
-    this.detalle = (this.cantidad_chacha.toString() + this.nombre);}
+    this.precio_detalle = (this.cantidad_chacha * this.precio_chacha);
+    this.detalle = (this.cantidad_chacha.toString() +' '+ this.nombre_chacha);}
     else{ console.log("no se puede pedir menos de 1 chacha");}
   }
 
   MandarDetalle(){
     
+  this.precio_pedido = this.precio_pedido + this.precio_detalle;
 
-  this.pedidosService.EnviarDetalleaFB(this.detalle , 'DPDIWSZjrrPrlPCfoIq8')
-    
+  this.detallesList.push(this.detalle.toString())  
+
+  this.pedidosService.EnviarDetalleaFB(this.detalle , 'aidLu4g9XAEu8BAw4zn3', this.precio_pedido)
 
   this.router.navigate(['/pedido']);
 
-  console.log(this.detallesList);
+  /*console.log(this.detallesList);
+  console.log(this.detalle)
   console.log(this.cantidad_chacha);
-  console.log(this.precio_total);
+  console.log(this.precio_detalle);
+  console.log(this.precio_pedido);*/
 
     this.modal.dismiss();
   }

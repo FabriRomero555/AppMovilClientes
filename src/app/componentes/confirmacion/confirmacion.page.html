@@ -15,31 +15,31 @@
         <ion-item>
             <ion-icon name="locate" item-start></ion-icon>
             <ion-label stacked>Calle o Avenida:</ion-label>
-            <ion-input type="text" placeholder="Calle Principal"></ion-input>
+            <ion-input type="text" placeholder="Calle Principal" [(ngModel)]="callePrincipal"></ion-input>
         </ion-item>
         <ion-item>
               <ion-icon name="grid" item-start></ion-icon>
             <ion-label>   Número Dom.:</ion-label>
-            <ion-input type="tel" placeholder="4070"></ion-input>
+            <ion-input type="tel" placeholder="4070" [(ngModel)]="numeroCasa"></ion-input>
         </ion-item>
           <ion-item>
               <ion-icon name="map" item-start></ion-icon>
             <ion-label>   Referencia:</ion-label>
-            <ion-input type="text" placeholder="Puerta Roja, Edificio, Esquina"></ion-input>
+            <ion-input type="text" placeholder="Puerta Roja, Edificio, Esquina" [(ngModel)]="referenciaCasa"></ion-input>
           </ion-item>
           <ion-item >
               <ion-icon name="pin" item-start></ion-icon>
               <ion-label stacked>Calle o Avenida:</ion-label>
-              <ion-input type="text" placeholder="Calle Auxiliar"></ion-input>
+              <ion-input type="text" placeholder="Calle Auxiliar" [(ngModel)]="calleAux1"></ion-input>
             </ion-item>
             <ion-item>
               <ion-icon name="pin" item-start></ion-icon>
               <ion-label stacked>Y:</ion-label>
-              <ion-input type="text" placeholder="Calle Auxiliar 2"></ion-input>
+              <ion-input type="text" placeholder="Calle Auxiliar 2" [(ngModel)]="calleAux2"></ion-input>
             </ion-item>
            
     </ion-list>
 
-    <ion-button expand="block">Siguiente</ion-button>
+    <ion-button expand="block" (click) ="TerminarOrden()">Siguiente</ion-button>
   
 </ion-content>

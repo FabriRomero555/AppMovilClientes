@@ -37,19 +37,45 @@ export class PedidosService {
         telefonoCliente: telefono, 
         entregado: false,
         fecha : (this.fecha.getDate().toString() +'-'+ this.fecha.getMonth().toString() +'-'+ this.fecha.getFullYear().toString()),
-        detalles : this.detalles
+        detalles : this.detalles,
+        callePrincipal : '-',
+        numeroCasa : '-',
+        referenciaCasa : '-',
+        calleAux1 : '-',
+        calleAux2 : '-'
+
       }).catch(err => reject(err));        
     });
   }
 
-  getPedidoid(pedidoid : string){
+  /*getPedidoid(pedidoid : string){
     return this.db.collection('pedidos').doc(pedidoid).valueChanges()
+  }*/
+
+  GetPedido(pedidoid : string){
+    return this.db.collection('pedidos').doc(pedidoid).valueChanges()
+    //obtiene un observable
   }
   
-  EnviarDetalleaFB(detallePedido : string , pedido_id : string){
+  EnviarDetalleaFB(detallePedido : string , pedido_id : string, precio_pedido : number){
       this.db.collection('pedidos').doc(pedido_id).update({
       detalles : firestore.FieldValue.arrayUnion(detallePedido),
+      precio_pedido : precio_pedido
     })
 }
+  SetDireccionPedido(pedido_id : string, callePrincipal : string , calleAux1 : string , calleAux2 : string, referenciaCasa : string,
+    numeroCasa : string)
+  {
+    this.db.collection('pedidos').doc(pedido_id).update({
+      callePrincipal : callePrincipal,
+      calleAux1 : calleAux1,
+      calleAux2 : calleAux2,
+      referenciaCasa : referenciaCasa,
+      numeroCasa : numeroCasa
+
+    })
+  }
+
+  
 
 }
