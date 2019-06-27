@@ -66,12 +66,12 @@ export class CantidadOrdenComponent implements OnInit {
      }
 
   this.precio_pedido = this.precio_pedido + this.precio_detalle;
-  this.pedidosService.SetPrecioDetalleFB('aidLu4g9XAEu8BAw4zn3' , (this.cantidad_chacha*this.precio_chacha));
+  this.pedidosService.SetPrecioDetalleFB('RPHJc7z7EfRywvYsmlZH' , (this.cantidad_chacha*this.precio_chacha));
   //console.log(this.cantidad_chacha*this.precio_chacha)
 
   this.detallesList.push(detalle)  
 
-  this.pedidosService.EnviarDetalleaFB(detalle , 'aidLu4g9XAEu8BAw4zn3', this.precio_pedido)
+  this.pedidosService.EnviarDetalleaFB(detalle , 'RPHJc7z7EfRywvYsmlZH', this.precio_pedido)
 
   this.router.navigate(['/pedido']);
 

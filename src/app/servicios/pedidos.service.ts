@@ -39,7 +39,7 @@ export class PedidosService {
   constructor(public  db : AngularFirestore) {
     //this.ordenesCollection = db.collection<orden>('pedidos')
    }
-   
+
   RegistrarPedidoFB(telefono: string ,nombre: string) { 
     return new Promise((resolve, reject) => {  
       this.db.collection('pedidos').add({
@@ -49,7 +49,7 @@ export class PedidosService {
         nombreCliente: nombre,
         telefonoCliente: telefono, 
         entregado: false,
-        precio : 0,
+        precio_pedido: '0',
         fecha : (this.fecha.getDate().toString() +'-'+ this.fecha.getMonth().toString() +'-'+ this.fecha.getFullYear().toString()),
         detalles : this.detalles,
         callePrincipal : '-',
