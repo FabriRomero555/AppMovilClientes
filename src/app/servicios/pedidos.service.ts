@@ -54,7 +54,7 @@ export class PedidosService {
       detalles : firestore.FieldValue.arrayUnion(detalle),
       precio_pedido : precio_pedido //aun no funciona precio de pedido
     })
-}
+  }
   SetDireccionPedidoFB(pedido_id : string, callePrincipal : string , calleAux1 : string , calleAux2 : string, referenciaCasa : string,
     numeroCasa : string)
   {
@@ -70,5 +70,10 @@ export class PedidosService {
   GetPedidoFB( pedido_id : string){
     return this.db.collection('pedidos').doc(pedido_id).valueChanges()
 }
+  SetPrecioDetalle(pedido_id : string, precio_detalle : number){
+    this.db.collection('pedidos').doc(pedido_id).update({
+      detalle_prueba : precio_detalle
+    })
+  }
 
 }
