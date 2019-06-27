@@ -76,4 +76,11 @@ export class PedidosService {
     })
   }
 
+  SetCordenadasCliente(pedido_id : string, lat : number , long : number){
+    this.db.collection('pedidos').doc(pedido_id).update({
+      latitudCliente : lat,
+      longitudCliente : long,
+    })
+  }
+
 }
