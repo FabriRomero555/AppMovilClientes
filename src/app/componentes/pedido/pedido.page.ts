@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router'
 import { CantidadOrdenComponent } from "../cantidad-orden/cantidad-orden.component";
-import { PedidosService } from "../../servicios/pedidos.service";
+import { PedidosService, pedido } from "../../servicios/pedidos.service";
 
 @Component({
   selector: 'app-pedido',
@@ -12,7 +12,7 @@ import { PedidosService } from "../../servicios/pedidos.service";
 export class PedidoPage implements OnInit {
 
   public detallesList = [];
-  public pedido : any;
+  public pedido : pedido;
 
   constructor(public router : Router,
     public pedidosService : PedidosService,
@@ -22,7 +22,9 @@ export class PedidoPage implements OnInit {
 
     this.pedidosService.GetPedidoFB('aidLu4g9XAEu8BAw4zn3').subscribe( pedido => {
       console.log(pedido);
-      this.pedido = pedido;
+      this.pedido = pedido; 
+
+    this.MostrarTotalPrueba();
 })
     
   }
@@ -32,5 +34,8 @@ export class PedidoPage implements OnInit {
   }
   IraMenu(){
     this.router.navigate(['/menu-orden'])
+  }
+  MostrarTotalPrueba(){
+    console.log(this.pedido.precio_pedido); 
   }
 }

@@ -46,7 +46,7 @@ export class ConfirmacionPage implements OnInit {
       console.log(this.latitud_cliente);
       console.log(this.longitud_cliente);
 
-      this.pedidosService.SetCordenadasCliente('aidLu4g9XAEu8BAw4zn3',this.latitud_cliente,this.longitud_cliente)
+      this.pedidosService.SetCordenadasClienteFB('aidLu4g9XAEu8BAw4zn3',this.latitud_cliente,this.longitud_cliente)
 
      }).catch((error) => {
        console.log('Error getting location', error);

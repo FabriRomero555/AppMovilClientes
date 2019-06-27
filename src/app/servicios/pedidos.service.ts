@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore'
-import { orden } from '../modelos/orden'
+//import { orden } from '../modelos/orden'
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { unescapeIdentifier } from '@angular/compiler';
@@ -8,11 +8,23 @@ import { firestore } from 'firebase';
 import { detalle } from "../modelos/detalle";
 
 export interface pedido{
-  id : string,
-  nombreCliente : string,
-  telefonoCliente : string,
-}
+    id : string
+    UIDMoto: string,
+    latitud_cliente : string,
+    longitud_cliente : string,
+    nombre_cliente: string,
+    telefono_cliente: string, 
+    entregado: boolean,
+    precio_pedido : number,
+    fecha : Date,
+    detalles : any,
+    callePrincipal : string,
+    numeroCasa : string,
+    referenciaCasa : string,
+    calleAux1 : string,
+    calleAux2 : string,
 
+}
 
 @Injectable({
   providedIn: 'root'
@@ -22,12 +34,12 @@ export class PedidosService {
 
   fecha : Date = new Date();
 
-  private ordenesCollection : AngularFirestoreCollection<orden>
+  //private ordenesCollection : AngularFirestoreCollection<orden>
   
   constructor(public  db : AngularFirestore) {
-    this.ordenesCollection = db.collection<orden>('pedidos')
+    //this.ordenesCollection = db.collection<orden>('pedidos')
    }
-
+   
   RegistrarPedidoFB(telefono: string ,nombre: string) { 
     return new Promise((resolve, reject) => {  
       this.db.collection('pedidos').add({
@@ -37,6 +49,7 @@ export class PedidosService {
         nombreCliente: nombre,
         telefonoCliente: telefono, 
         entregado: false,
+        precio : 0,
         fecha : (this.fecha.getDate().toString() +'-'+ this.fecha.getMonth().toString() +'-'+ this.fecha.getFullYear().toString()),
         detalles : this.detalles,
         callePrincipal : '-',
@@ -55,6 +68,7 @@ export class PedidosService {
       precio_pedido : precio_pedido //aun no funciona precio de pedido
     })
   }
+
   SetDireccionPedidoFB(pedido_id : string, callePrincipal : string , calleAux1 : string , calleAux2 : string, referenciaCasa : string,
     numeroCasa : string)
   {
@@ -67,20 +81,35 @@ export class PedidosService {
     })
   }
 
-  GetPedidoFB( pedido_id : string){
-    return this.db.collection('pedidos').doc(pedido_id).valueChanges()
-}
-  SetPrecioDetalle(pedido_id : string, precio_detalle : number){
+  /*GetPedidoFB( pedido_id : string){
+    return this.db.collection('pedidos').doc(pedido_id).valueChanges()}*/
+
+  SetPrecioDetalleFB(pedido_id : string, precio_detalle : number){
     this.db.collection('pedidos').doc(pedido_id).update({
       detalle_prueba : precio_detalle
     })
   }
 
-  SetCordenadasCliente(pedido_id : string, lat : number , long : number){
+  SetCordenadasClienteFB(pedido_id : string, lat : number , long : number){
     this.db.collection('pedidos').doc(pedido_id).update({
       latitudCliente : lat,
       longitudCliente : long,
     })
+  }
+
+  SetPrecioPedidoFB(pedido_id : string , precio_acumulado : number){
+    this.db.collection('pedidos').doc(pedido_id).update({
+      precio_pedido : precio_acumulado,
+    })
+  }
+
+  GetPedidoFB(pedido_id: string) {
+    return this.db.collection('pedidos').doc(pedido_id).snapshotChanges().pipe(map(pedidos => {
+      const data = pedidos.payload.data() as pedido;
+      data.id = pedidos.payload.id;
+      return data;
+      
+    }))   
   }
 
 }

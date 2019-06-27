@@ -66,7 +66,7 @@ export class CantidadOrdenComponent implements OnInit {
      }
 
   this.precio_pedido = this.precio_pedido + this.precio_detalle;
-  this.pedidosService.SetPrecioDetalle('aidLu4g9XAEu8BAw4zn3' , (this.cantidad_chacha*this.precio_chacha));
+  this.pedidosService.SetPrecioDetalleFB('aidLu4g9XAEu8BAw4zn3' , (this.cantidad_chacha*this.precio_chacha));
   //console.log(this.cantidad_chacha*this.precio_chacha)
 
   this.detallesList.push(detalle)  
