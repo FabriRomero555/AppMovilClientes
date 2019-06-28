@@ -1,10 +1,19 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>Final</ion-title>
+  <ion-toolbar color = "secondary">
+    <ion-title ion-text color = "dark">Final</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
-  <ion-label>Su Pedido esta en Camino!</ion-label>
-<ion-button (click)="VolverHome()">OK</ion-button >
+<ion-content padding color = "primary">
+    <h1>Gracias por confiar en:
+      <ion-img src="/assets/img/6.png"></ion-img>
+    </h1>
+  <ion-label>Su pedido esta en camino, gracias por ordenar!! 
+      <ion-icon name="bicycle"></ion-icon>
+  </ion-label>
+
+<br>
+<ion-button expand = "full" (click)="VolverHome()" color = "secondary">
+    <ion-icon name="thumbs-up"></ion-icon>
+    Finalizar</ion-button >
 </ion-content>

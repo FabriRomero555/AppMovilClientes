@@ -4,7 +4,7 @@
             <ion-icon name="arrow-round-back" size="large"  ></ion-icon>
           </ion-button>
       <ion-title ion-text color="dark">
-        Direccion de Entrega
+        Dirección de Entrega
       </ion-title>
     </ion-toolbar>
   </ion-header>
@@ -13,7 +13,7 @@
 
 <ion-content padding color="primary">
   <ion-item>
-    <ion-label position="floating">Numero de telefono:</ion-label>
+    <ion-label position="floating">Número de teléfono:</ion-label>
     <ion-input placeholder = "Ej: 72229922" [(ngModel)]="telefono"></ion-input>
   </ion-item>
   <ion-item>
@@ -21,7 +21,7 @@
     <ion-input placeholder = "Ej: Juan Perez" [(ngModel)]="referencia"></ion-input>
   </ion-item>
 
-  <ion-button color = "secondary" (click)="EmpezarPedido()" >
+  <ion-button expand ="full" color = "secondary" (click)="EmpezarPedido()" >
     <ion-icon slot="start" name="cart" ></ion-icon>
     Empezar Pedido
   </ion-button >
