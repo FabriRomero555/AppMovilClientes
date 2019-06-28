@@ -13,21 +13,21 @@
 
 
 <ion-footer>
-<ion-toolbar color="secondary">
-      <ion-buttons slot="primary">
-      <ion-button color = "dark" (click)="IraConfirmar()">
-      </ion-button>
-  </ion-buttons>
-  
-  <!--<ion-text color="dark" class="ion-text-center" >
-    <h2> Total</h2>
-    </ion-text>  --> 
-
-  <ion-buttons >
-  <ion-button color = "dark" fill = "clear" slot="start" (click)="IraMenu()">
+<ion-toolbar color="primary">
+    <ion-item color = "primary">
+      <ion-text color="light" class="ion-text-center" >
+      <h2> Total  Bs. {{precioTotal}}</h2>
+      </ion-text>
+    </ion-item>  
+    
+    <ion-button  color = "danger" slot="start" (click)="IraMenu()">
       <ion-icon slot="icon-only" name="md-add-circle"></ion-icon>
     </ion-button>
-  </ion-buttons>
+
+    <ion-button color  = "danger" (click)="IraConfirmar()" slot = "end">
+        <ion-icon slot="icon-only" name="md-arrow-forward"></ion-icon>
+      </ion-button>
+     
                    
 </ion-toolbar>
 </ion-footer>

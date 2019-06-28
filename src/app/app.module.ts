@@ -19,6 +19,8 @@ import { PedidoComponent } from "./componentes/pedido/pedido.component";
 import { DetallesComponent } from "./componentes/detalles/detalles.component";
 import { FormsModule } from '@angular/forms';
 
+import { Geolocation } from '@ionic-native/geolocation/ngx';
+
 @NgModule({
   declarations: [AppComponent, CantidadOrdenComponent, PedidoComponent, DetallesComponent, ChachaComponent , MasinfoComponent ],
   entryComponents: [CantidadOrdenComponent, PedidoComponent, DetallesComponent, ChachaComponent, MasinfoComponent],
@@ -28,6 +30,7 @@ import { FormsModule } from '@angular/forms';
   providers: [
     //InAppBrowser,
     StatusBar,
+    Geolocation,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     {provide: FirestoreSettingsToken, useValue: {} }

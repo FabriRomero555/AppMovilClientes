@@ -6,8 +6,6 @@
 
 <ion-content padding color ="secondary">
 
-
-
   <ion-item> 
     <h2>Seleccione una Cantidad: </h2>
   </ion-item>
@@ -27,10 +25,11 @@
     <ion-button shape="round" fill="outline"  position = "fixed"  slot="end" (click)="Disminuir1()">
       <ion-icon slot="icon-only" name="remove" ></ion-icon>
     </ion-button>
-        <ion-input value="{{cantidad_chacha}}" ></ion-input>
+        <ion-input [(ngModel)]="cantidad_chacha" (onChange) ="CalcularPrecio()"></ion-input>
   </ion-item>
+  <br>
   <ion-item>
-    <ion-label slot="end">Total Bs.{{precio_detalle}}</ion-label>
+    <h3 slot="end">Total: Bs. {{cantidad_chacha * precio_chacha}}</h3>
   </ion-item>
 
 </ion-content>
