@@ -70,7 +70,7 @@ export class MenuPage implements OnInit{
     this.modal.create({
       component : ChachaComponent,
       componentProps : {
-        chacha: chacha
+      chacha: chacha
       }
     }).then((modal) => modal.present())
 
