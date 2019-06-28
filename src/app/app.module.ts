@@ -20,16 +20,12 @@ import { DetallesComponent } from "./componentes/detalles/detalles.component";
 import { FormsModule } from '@angular/forms';
 
 import { Geolocation } from '@ionic-native/geolocation/ngx';
-import { CustomFormsModule } from 'ng2-validation' // ng2-validation
 
 @NgModule({
   declarations: [AppComponent, CantidadOrdenComponent, PedidoComponent, DetallesComponent, ChachaComponent , MasinfoComponent ],
   entryComponents: [CantidadOrdenComponent, PedidoComponent, DetallesComponent, ChachaComponent, MasinfoComponent],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, 
-  AngularFireModule.initializeApp(firebaseConfig), AngularFirestoreModule, FormsModule,      // Esto le da acceso a la aplicación a todas las características de formularios de plantilla, incluyendo ngModel.
-  CustomFormsModule // Validación personalizadas de formularios en Angular, inspirada en la validación de jQuery.
-
-],
+  AngularFireModule.initializeApp(firebaseConfig), AngularFirestoreModule, FormsModule],
 
   providers: [
     //InAppBrowser,
