@@ -39,7 +39,17 @@
             </ion-item>
            
     </ion-list>
-
-    <ion-button expand="block" (click) ="TerminarOrden()">Siguiente</ion-button>
-  
+    <h4>Para mayor precision seleccione una opcion:</h4>
+    <br>
+    <ion-button  (click)="EnviarMiUbicacion()">Estoy en esta Ubicacion</ion-button>
+    <h4>ó</h4>
+    <ion-button  >Establecer marcador</ion-button>
+    <br>
+     
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+      <ion-button expand="block" (click) ="TerminarOrden()">Finalizar Pedido</ion-button>
+  </ion-toolbar>
+</ion-footer>

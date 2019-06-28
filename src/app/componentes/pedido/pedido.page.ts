@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router'
 import { CantidadOrdenComponent } from "../cantidad-orden/cantidad-orden.component";
-import { PedidosService } from "../../servicios/pedidos.service";
+import { PedidosService, pedido } from "../../servicios/pedidos.service";
 
 @Component({
   selector: 'app-pedido',
@@ -12,7 +12,8 @@ import { PedidosService } from "../../servicios/pedidos.service";
 export class PedidoPage implements OnInit {
 
   public detallesList = [];
-  public pedido : any;
+  public pedido : pedido;
+  public precioTotal : number;
 
   constructor(public router : Router,
     public pedidosService : PedidosService,
@@ -20,9 +21,13 @@ export class PedidoPage implements OnInit {
 
   ngOnInit() {
 
-    this.pedidosService.GetPedidoFB('aidLu4g9XAEu8BAw4zn3').subscribe( pedido => {
-      console.log(pedido);
-      this.pedido = pedido;
+    this.pedidosService.GetPedidoFB('RPHJc7z7EfRywvYsmlZH').subscribe( pedido => {
+      //console.log(pedido);
+      this.pedido = pedido; 
+      this.precioTotal = this.pedido.precio_pedido;
+
+    console.log(pedido.precio_pedido)
+    console.log(this.precioTotal)
 })
     
   }
@@ -33,4 +38,5 @@ export class PedidoPage implements OnInit {
   IraMenu(){
     this.router.navigate(['/menu-orden'])
   }
+  
 }
