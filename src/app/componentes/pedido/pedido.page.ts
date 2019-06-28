@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router'
 import { CantidadOrdenComponent } from "../cantidad-orden/cantidad-orden.component";
 import { PedidosService, pedido } from "../../servicios/pedidos.service";
+import { ChachasService,DetalleChachas } from "../../servicios/Chachas.service";
+
 
 @Component({
   selector: 'app-pedido',

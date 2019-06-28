@@ -5,6 +5,13 @@ import { PedidosService , pedido} from "../../servicios/pedidos.service";
 //import { ChatsService, DetalleChacha } from "../../servicios/Chats.service";
 import { ModalController } from "@ionic/angular";
 import { DetallesComponent } from "../../componentes/detalles/detalles.component";
+import { orden } from "../../modelos/orden";
+import { ChachasService  } from "../../servicios/Chachas.service";
+import { NavController, AlertController } from '@ionic/angular';
+//'@ionic-angular'
+
+
+
 
 
 @Component({
@@ -13,6 +20,8 @@ import { DetallesComponent } from "../../componentes/detalles/detalles.component
   styleUrls: ['./ordenar.page.scss'],
 })
 export class OrdenarPage implements OnInit  {
+  
+  myModel: any; // Modelo de datos.
   
   public chachaslist:any=[];
 
@@ -23,8 +32,12 @@ export class OrdenarPage implements OnInit  {
   
   constructor(
     public router : Router,
-     public pedidoService:PedidosService,
-     private modal : ModalController) {}
+    public chachasservice : ChachasService,
+    public pedidoService:PedidosService,
+    private modal : ModalController,
+    public navCtrl:   NavController,
+    public alertCtrl: AlertController) {  this.myModel = {}; // Inicializacion del modelo como un objeto vacio.
+    }
 
   ngOnInit() {
   }

@@ -10,33 +10,66 @@
 </ion-header>
 
 <ion-content padding color = "secondary">
-
+<form novalidate>
     <ion-list>
         <ion-item>
             <ion-icon name="locate" item-start></ion-icon>
             <ion-label stacked>Calle o Avenida:</ion-label>
-            <ion-input type="text" placeholder="Calle Principal" [(ngModel)]="callePrincipal"></ion-input>
+            <ion-input type="text" placeholder="Calle Principal" [(ngModel)]="callePrincipal"
+            name="soloTexto" #soloTexto="ngModel"  pattern="[a-zA-Z]*" required></ion-input>
         </ion-item>
+        <div class="form-error" *ngIf="soloTexto.errors && (soloTexto.dirty || soloTexto.touched)">
+            <p color="danger" [hidden]="!soloTexto.errors.required">Campo requerido</p>
+          </div>
+
+
+
+    
         <ion-item>
               <ion-icon name="grid" item-start></ion-icon>
             <ion-label>   Número Dom.:</ion-label>
-            <ion-input type="tel" placeholder="4070" [(ngModel)]="numeroCasa"></ion-input>
+            <ion-input type="number" placeholder="4070" [(ngModel)]="numeroCasa"
+            name="solonumero" #solonumero="ngModel" required></ion-input>
         </ion-item>
+        <div class="form-error" *ngIf="solonumero.errors && (solonumero.dirty || solonumero.touched)">
+            <p color="danger" [hidden]="!solonumero.errors.required">Campo requerido</p>
+          </div>
+
+
+
+
           <ion-item>
               <ion-icon name="map" item-start></ion-icon>
             <ion-label>   Referencia:</ion-label>
-            <ion-input type="text" placeholder="Puerta Roja, Edificio, Esquina" [(ngModel)]="referenciaCasa"></ion-input>
+            <ion-input type="text" placeholder="Puerta Roja, Edificio, Esquina" [(ngModel)]="referenciaCasa" name="solomapa"  required></ion-input>
           </ion-item>
+          <div class="form-error" >
+            <p color="danger" [hidden]="!solomapa.errors.required">Campo requerido</p>
+          </div>
+
+
+
           <ion-item >
               <ion-icon name="pin" item-start></ion-icon>
               <ion-label stacked>Calle o Avenida:</ion-label>
-              <ion-input type="text" placeholder="Calle Auxiliar" [(ngModel)]="calleAux1"></ion-input>
+              <ion-input type="text" placeholder="Calle Auxiliar" [(ngModel)]="calleAux1"
+              name="solocalle"  required></ion-input>
             </ion-item>
+            <div class="form-error" >
+              <p color="danger" [hidden]="!solocalle.errors.required">Campo requerido</p>
+            </div>
+
+
+
+
             <ion-item>
               <ion-icon name="pin" item-start></ion-icon>
               <ion-label stacked>Y:</ion-label>
-              <ion-input type="text" placeholder="Calle Auxiliar 2" [(ngModel)]="calleAux2"></ion-input>
+              <ion-input type="text" placeholder="Calle Auxiliar 2" [(ngModel)]="calleAux2" name="soloaux"  required></ion-input>
             </ion-item>
+            <div class="form-error" >
+              <p color="danger" [hidden]="!soloaux.errors.required">Campo requerido</p>
+            </div>
            
     </ion-list>
     <h4>Para mayor precision seleccione una opcion:</h4>

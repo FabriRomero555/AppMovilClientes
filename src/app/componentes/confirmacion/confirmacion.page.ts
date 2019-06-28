@@ -4,12 +4,15 @@ import { PedidosService } from "../../servicios/pedidos.service";
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 
 
+import { NavController, AlertController } from '@ionic/angular';
 @Component({
   selector: 'app-confirmacion',
   templateUrl: './confirmacion.page.html',
   styleUrls: ['./confirmacion.page.scss'],
 })
 export class ConfirmacionPage implements OnInit {
+  myModel: any; // Modelo de datos.
+  
 
   private callePrincipal : string;
   private calleAux1 : string;
@@ -22,8 +25,10 @@ export class ConfirmacionPage implements OnInit {
 
   constructor(public router : Router,
     public pedidosService : PedidosService,
-    private geolocation : Geolocation) { }
-
+    private geolocation : Geolocation,
+    public navCtrl:   NavController,
+     public alertCtrl: AlertController
+    ) {this.myModel = {} } 
   ngOnInit() {
   }
 
