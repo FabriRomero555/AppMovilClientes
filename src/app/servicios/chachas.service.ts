@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from "@angular/fire/firestore";
+import { AngularFirestore, AngularFirestoreCollection } from "@angular/fire/firestore";
+import { Observable } from 'rxjs';
 import { map } from "rxjs/operators";
+
 
 export interface chacha {
   id_chacha :string
@@ -13,7 +15,9 @@ export interface chacha {
   providedIn: 'root'
 })
 export class ChachasService {
-
+  contador: Observable<any>;
+  listaContador: AngularFirestoreCollection<any>;
+  //public codigo: number;
   constructor(private db :AngularFirestore) { }
 
   public getChachas(){
@@ -25,8 +29,29 @@ export class ChachasService {
       })
     }))
   }
+  public getContadorPedido(){
+    this.listaContador = this.db.collection('contadorPedido');
+    let codigo;
+    //Cargando datos de firebase
+      this.contador = this.listaContador.snapshotChanges().pipe(
+        map(actions => 
+          actions.map(a => {
+            codigo = a.payload.doc.data().contador;
+            const data = codigo;
+            const id =  a.payload.doc.id;
+            return { data };
+          })
+        )
+      );
+      
+    //Actualizando mapa
+    this.contador.subscribe(ubicaciones =>
+      {
+       console.log('ubicaciones de los conductores: ', ubicaciones);
 
-
+      })
+      return codigo;
+  }
   getChachaRooms(){
 
     return this.db.collection('chachaRooms').snapshotChanges()

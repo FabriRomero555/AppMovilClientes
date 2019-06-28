@@ -5,7 +5,7 @@ import { PedidosService , pedido} from "../../servicios/pedidos.service";
 //import { ChatsService, DetalleChacha } from "../../servicios/Chats.service";
 import { ModalController } from "@ionic/angular";
 import { DetallesComponent } from "../../componentes/detalles/detalles.component";
-
+import { ChachasService } from "../../servicios/chachas.service"
 
 @Component({
   selector: 'app-ordenar',
@@ -15,24 +15,27 @@ import { DetallesComponent } from "../../componentes/detalles/detalles.component
 export class OrdenarPage implements OnInit  {
   
   public chachaslist:any=[];
-
+  private cod : string;
   private referencia : string;
   private telefono : string;
   //public orden : orden
   
   
   constructor(
-    public router : Router,
+     public codigo : ChachasService, 
+     public router : Router,
      public pedidoService:PedidosService,
-     private modal : ModalController) {}
-
+     private modal : ModalController) {
+       console.log('contador: '+ this.codigo.getContadorPedido())
+     }
+ 
   ngOnInit() {
   }
 
   VolverHome(){
     this.router.navigate(['/home']);
   }
-
+ 
   EmpezarPedido(){
   
     this.pedidoService.RegistrarPedidoFB(this.telefono, this.referencia);

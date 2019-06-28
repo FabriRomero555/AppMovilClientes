@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router' 
+import { AsignacionpedidoService } from '../servicios/asignacionpedido.service'
 
 
 
@@ -13,7 +14,7 @@ export class HomePage{
 
   constructor(
     public router : Router,
-    
+    public asigP : AsignacionpedidoService,
      ) {}
 
   
