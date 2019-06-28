@@ -2,8 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router'
 import { orden } from "../../modelos/orden";
 import { PedidosService } from "../../servicios/pedidos.service";
-// verificar si la direccion esta bien 
+
 import { ChachasService  } from "../../servicios/Chachas.service";
+import { NavController, AlertController } from '@ionic/angular';
+//'@ionic-angular'
+
 
 
 
@@ -15,6 +18,8 @@ import { ChachasService  } from "../../servicios/Chachas.service";
 })
 export class OrdenarPage implements OnInit  {
   
+  myModel: any; // Modelo de datos.
+  
   public chachaslist:any=[];
 
   private referencia : string;
@@ -22,18 +27,18 @@ export class OrdenarPage implements OnInit  {
   public orden : orden
   
   
-  constructor(public router : Router, public chachasservice : ChachasService, public pedidoService:PedidosService) { }
+  constructor(public router : Router, public chachasservice : ChachasService,
+     public pedidoService:PedidosService,
+     public navCtrl:   NavController,
+     public alertCtrl: AlertController
+     ) {  this.myModel = {}; // Inicializacion del modelo como un objeto vacio.
+    }
 
   
-  
-
-
-
 ngOnInit() {
-  this.chachasservice .getChaCHACHAS().subscribe(DetalleTipoEmpanada => {
-    this.chachaslist = DetalleTipoEmpanada;
-  })
+  
 }
+
   VolverHome(){
     this.router.navigate(['/home']);
   }

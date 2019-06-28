@@ -12,14 +12,31 @@
   <ion-content>
 
 <ion-content padding>
+    <form novalidate>
   <ion-item>
     <ion-label position="floating">Numero de telefono:</ion-label>
-    <ion-input placeholder = "Ej: 72229922" [(ngModel)]="telefono"></ion-input>
+    <ion-input   placeholder = "Ej: 77985412"   type="number" [(ngModel)]="chachaslist.solonumero" 
+    name="solonumero" #solonumero="ngModel" required ></ion-input>
   </ion-item>
+  <div class="form-error" *ngIf="solonumero.errors && (solonumero.dirty || solonumero.touched)">
+      <p color="danger" [hidden]="!solonumero.errors.required">Campo requerido</p>
+    </div>
+    <!-- MENSAJE PERSONALIZADO -->
+
+    <!-- pattern="[a-zA-Z]*" -->
+  
   <ion-item>
     <ion-label position="floating">Preguntar por:</ion-label>
-    <ion-input placeholder = "Ej: Juan Perez" [(ngModel)]="referencia"></ion-input>
+    <ion-input placeholder = "Ej: Juan Perez" type="text" [(ngModel)]="chachaslist.soloTexto"
+     name="soloTexto" #soloTexto="ngModel"  pattern="[a-zA-Z]*" required></ion-input>
   </ion-item>
+  <div class="form-error" *ngIf="soloTexto.errors && (soloTexto.dirty || soloTexto.touched)">
+      <p color="danger" [hidden]="!soloTexto.errors.required">Campo requerido</p>
+    </div>
+
+
+
+
 
   <ion-button (click)="EmpezarPedido()">
     <ion-icon slot="start" name="cart" ></ion-icon>
