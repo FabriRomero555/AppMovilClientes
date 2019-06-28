@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {NavParams, ModalController} from '@ionic/angular';
 import {Router} from '@angular/router'
 import { detalle } from "../../modelos/detalle";
-import { PedidosService } from "../../servicios/pedidos.service"
+import { PedidosService, pedido } from "../../servicios/pedidos.service"
+import { NumberSymbol } from '@angular/common';
 
 @Component({
   selector: 'app-cantidad-orden',
@@ -17,14 +18,17 @@ export class CantidadOrdenComponent implements OnInit {
   private precio_detalle : number;
   public nombre_chacha : string
   public precio_pedido : number;
-  public prueba : number;
+
+  //public prueba : number;
+
+  public pedido : pedido;
+  public precioTotal : number;
 
     
   constructor(private navparams : NavParams,
      private modal : ModalController,
       public router : Router,
-      private pedidosService : PedidosService) {
-        this.prueba = this.cantidad_chacha;
+      public pedidosService : PedidosService) {
     }
 
 
@@ -34,9 +38,16 @@ export class CantidadOrdenComponent implements OnInit {
     this.nombre_chacha = this.navparams.get('nombre');
     this.cantidad_chacha = 1;
     //this.CalcularPrecio(this.cantidad_chacha)
-    this.precio_detalle = (this.cantidad_chacha * this.precio_chacha) 
+    //this.precio_detalle = (this.cantidad_chacha * this.precio_chacha) 
     //this.detalle = (this.cantidad_chacha.toString() +' '+ this.nombre_chacha);
     //this.precio_pedido = this.pedidosService.GetPrecio('DPDIWSZjrrPrlPCfoIq8');
+
+    this.pedidosService.GetPedidoFB('RPHJc7z7EfRywvYsmlZH').subscribe( pedido => {
+      
+      this.pedido = pedido; 
+      this.precioTotal = this.pedido.precio_pedido;  
+      console.log('Cnat component PrecioTotal: ' + this.precioTotal);
+    })
     
   }
 //recuperar cada que cambia por el teclado la cantidad que se pone
@@ -65,13 +76,13 @@ export class CantidadOrdenComponent implements OnInit {
         cantidad_chacha : this.cantidad_chacha,
      }
 
-  this.precio_pedido = this.precio_pedido + this.precio_detalle;
-  this.pedidosService.SetPrecioDetalleFB('RPHJc7z7EfRywvYsmlZH' , (this.cantidad_chacha*this.precio_chacha));
+  //this.precio_pedido = this.precio_pedido + this.precio_detalle;
+  this.pedidosService.SetPrecioDetalleFB('RPHJc7z7EfRywvYsmlZH' , ((this.precioTotal)+(this.cantidad_chacha*this.precio_chacha)));
   //console.log(this.cantidad_chacha*this.precio_chacha)
 
   this.detallesList.push(detalle)  
 
-  this.pedidosService.EnviarDetalleaFB(detalle , 'RPHJc7z7EfRywvYsmlZH', this.precio_pedido)
+  this.pedidosService.EnviarDetalleaFB(detalle , 'RPHJc7z7EfRywvYsmlZH')
 
   this.router.navigate(['/pedido']);
 

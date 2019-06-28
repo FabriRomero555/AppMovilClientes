@@ -27,8 +27,9 @@
     </ion-button>
         <ion-input [(ngModel)]="cantidad_chacha" (onChange) ="CalcularPrecio()"></ion-input>
   </ion-item>
+  <br>
   <ion-item>
-    <h3 slot="end">{{cantidad_chacha * precio_chacha}}</h3>
+    <h3 slot="end">Total: Bs. {{cantidad_chacha * precio_chacha}}</h3>
   </ion-item>
 
 </ion-content>

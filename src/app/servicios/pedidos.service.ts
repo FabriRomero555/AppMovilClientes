@@ -49,7 +49,7 @@ export class PedidosService {
         nombreCliente: nombre,
         telefonoCliente: telefono, 
         entregado: false,
-        precio_pedido: '0',
+        precio_pedido: 0,
         fecha : (this.fecha.getDate().toString() +'-'+ this.fecha.getMonth().toString() +'-'+ this.fecha.getFullYear().toString()),
         detalles : this.detalles,
         callePrincipal : '-',
@@ -62,11 +62,14 @@ export class PedidosService {
     });
   }
   
-  EnviarDetalleaFB(detalle : detalle , pedido_id : string, precio_pedido : number){
+
+
+  EnviarDetalleaFB(detalle : detalle , pedido_id : string){
       this.db.collection('pedidos').doc(pedido_id).update({
       detalles : firestore.FieldValue.arrayUnion(detalle),
-      precio_pedido : precio_pedido //aun no funciona precio de pedido
+      //precio_pedido : precio_pedido //aun no funciona precio de pedido
     })
+
   }
 
   SetDireccionPedidoFB(pedido_id : string, callePrincipal : string , calleAux1 : string , calleAux2 : string, referenciaCasa : string,
@@ -86,7 +89,7 @@ export class PedidosService {
 
   SetPrecioDetalleFB(pedido_id : string, precio_detalle : number){
     this.db.collection('pedidos').doc(pedido_id).update({
-      detalle_prueba : precio_detalle
+      precio_pedido : precio_detalle
     })
   }
 
