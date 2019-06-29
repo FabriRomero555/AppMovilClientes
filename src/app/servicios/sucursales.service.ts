@@ -10,6 +10,8 @@ export interface sucursal
   telefono_sucursal: string
   nombre_sucursal: string
   imagen_sucursal: any
+  latitud: number 
+  longitud: number
   }
 
 

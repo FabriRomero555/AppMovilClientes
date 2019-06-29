@@ -15,7 +15,9 @@ export class MasinfoComponent implements OnInit {
   public direccionsuc: string;
   public telefonosuc: string;
   public ubicacion : any;
-  public imagensuc: any
+  public imagensuc: any;
+  public latitudsuc: number;
+  public longitudsuc: number;
 
   constructor( private navparams: NavParams, public router : Router, public modal: ModalController ) { }
 
@@ -25,6 +27,9 @@ export class MasinfoComponent implements OnInit {
     this.navparams.get('telefonosuc')
     this.navparams.get('ubicacion')
     this.navparams.get('imagensuc')
+    this.navparams.get('latitudsuc')
+    this.navparams.get('longitudsuc')
+
   }
 
   Cerrar() 
