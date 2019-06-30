@@ -37,9 +37,21 @@
           <p> Lun-Sab(8:00-22:00) / Dom(9:00-15:00) </p>
       </ion-label>
     </ion-item>
+    <ion-item>
+        <ion-icon name="pin" slot="start"></ion-icon>
+        <ion-label>
+            <h2><b> Ubicacion </b></h2>
+            <p> {{ latitudsuc }},{{ longitudsuc }}</p>
+        </ion-label>
+      </ion-item>
     
     </ion-card-content>
         
 </ion-card>
-     <ion-button  expand = "block" (click)="OpenUrl()">Abrir en Google Maps</ion-button>   
+   
+
+    <ion-button  expand = "block" (click)="AbrirMapa()">Abrir en Google Maps</ion-button> 
+ 
+
+
 </ion-content>

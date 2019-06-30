@@ -20,6 +20,8 @@ import { DetallesComponent } from "./componentes/detalles/detalles.component";
 import { FormsModule } from '@angular/forms';
 
 import { Geolocation } from '@ionic-native/geolocation/ngx';
+//import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
+ 
 
 @NgModule({
   declarations: [AppComponent, CantidadOrdenComponent, PedidoComponent, DetallesComponent, ChachaComponent , MasinfoComponent ],
@@ -31,6 +33,7 @@ import { Geolocation } from '@ionic-native/geolocation/ngx';
     //InAppBrowser,
     StatusBar,
     Geolocation,
+    //NativeGeocoder,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     {provide: FirestoreSettingsToken, useValue: {} }

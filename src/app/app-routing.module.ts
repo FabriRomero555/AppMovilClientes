@@ -15,6 +15,8 @@ const routes: Routes = [
   { path: 'confirmacion', loadChildren: './componentes/confirmacion/confirmacion.module#ConfirmacionPageModule' },
   { path: 'masinfo', loadChildren: './componentes/masinfo/masinfo.module#MasinfoPageModule' },
   { path: 'final', loadChildren: './componentes/final/final.module#FinalPageModule' },
+  { path: 'mapa', loadChildren: './componentes/mapa/mapa.module#MapaPageModule' },
+
 ];
 
 @NgModule({
