@@ -9,19 +9,30 @@
     </ion-toolbar>
   </ion-header>
   
-  <ion-content>
+
 
 <ion-content padding color="primary">
-  <ion-item>
-    <ion-label position="floating">Número de teléfono:</ion-label>
-    <ion-input placeholder = "Ej: 72229922" [(ngModel)]="telefono"></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label position="floating">Preguntar por:</ion-label>
-    <ion-input placeholder = "Ej: Juan Perez" [(ngModel)]="referencia"></ion-input>
-  </ion-item>
 
-  <ion-button expand ="full" color = "secondary" (click)="EmpezarPedido()" >
-    <ion-icon slot="start" name="cart" ></ion-icon>
-    Empezar Pedido
-  </ion-button >
+
+    <ion-item>
+      <ion-label position="floating">Número de teléfono:</ion-label>
+      <ion-input placeholder = "Ej: 72229922" [(ngModel)]="telefono" type ="tel" minlength = "7" maxlength = "8" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Preguntar por:</ion-label>
+      <ion-input placeholder = "Ej: Juan Perez" 
+      [(ngModel)]="referencia" required
+     
+      type="text"
+      ></ion-input>
+    </ion-item>
+
+  
+    <br><br><br><br><br>
+    <ion-button expand ="full" color = "secondary" (click)="EmpezarPedido()" >
+      <ion-icon slot="start" name="cart" ></ion-icon>
+      Empezar Pedido
+    </ion-button >
+
+
+  </ion-content>

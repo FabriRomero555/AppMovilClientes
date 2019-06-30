@@ -14,35 +14,34 @@
       <ion-item>
           <ion-icon name="locate" item-start></ion-icon>
           <ion-label stacked>Calle o Avenida:</ion-label>
-          <ion-input type="text" placeholder="Calle Principal" [(ngModel)]="callePrincipal"></ion-input>
+          <ion-input type="text"
+           placeholder="Calle Principal"
+           [(ngModel)]="callePrincipal"
+           required></ion-input>
       </ion-item>
       <ion-item>
-            <ion-icon name="grid" item-start></ion-icon>
+          <ion-icon name="grid" item-start></ion-icon>
           <ion-label>   Número Dom.:</ion-label>
-          <ion-input type="tel" placeholder="4070" [(ngModel)]="numeroCasa"></ion-input>
+          <ion-input type="tel" placeholder="4070" [(ngModel)]="numeroCasa" required></ion-input>
       </ion-item>
         <ion-item>
-            <ion-icon name="map" item-start></ion-icon>
+          <ion-icon name="map" item-start></ion-icon>
           <ion-label>   Referencia:</ion-label>
-          <ion-input type="text" placeholder="Puerta Roja, Edificio, Esquina" [(ngModel)]="referenciaCasa"></ion-input>
-        </ion-item>
+          <ion-input type="text" placeholder="Puerta Roja, Edificio, Esquina" [(ngModel)]="referenciaCasa" required></ion-input>
+      </ion-item>
         <ion-item >
             <ion-icon name="pin" item-start></ion-icon>
             <ion-label stacked>Calle Auxiliar 1:</ion-label>
-            <ion-input type="text" placeholder="Calle Auxiliar" [(ngModel)]="calleAux1"></ion-input>
+            <ion-input type="text" placeholder="Calle Auxiliar" [(ngModel)]="calleAux1" requirerd></ion-input>
           </ion-item>
           <ion-item>
             <ion-icon name="pin" item-start></ion-icon>
             <ion-label stacked>Calle Auxiliar 2:</ion-label>
-            <ion-input type="text" placeholder="Calle Auxiliar 2" [(ngModel)]="calleAux2"></ion-input>
+            <ion-input type="text" placeholder="Calle Auxiliar 2" [(ngModel)]="calleAux2" required></ion-input>
           </ion-item>
           
   </ion-list>
-  <h4>Para mayor precision seleccione una opcion:</h4>
-  <br>
-  <ion-button  (click)="EnviarMiUbicacion()">Estoy en esta Ubicacion</ion-button>
-  <h4>ó</h4>
-  <ion-button  >Establecer marcador</ion-button>
+  
   <br>
      
 </ion-content>
