@@ -23,6 +23,7 @@ export class MapaPage implements OnInit, AfterContentInit  {
     this.SucursalesService.getSucursales().subscribe(sucursales =>{
     this.listaSuc = sucursales;
     console.log(this.listaSuc);
+    this.AddMarker(this.listaSuc);
   
   })
 
@@ -39,7 +40,7 @@ export class MapaPage implements OnInit, AfterContentInit  {
       let latLng = new google.maps.LatLng(resp.coords.latitude, resp.coords.longitude);
       let mapOptions = {
         center: latLng,
-        zoom: 15,
+        zoom: 18,
         mapTypeId: google.maps.MapTypeId.ROADMAP
       }
     });
