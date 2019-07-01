@@ -111,11 +111,12 @@ export class PedidosService {
   }
 
   SetCordenadasClienteFB(lat : number , long : number){
+    var direccion = this.asignacionSucursal(this.sucursales, lat, long)
     var codigo = parseInt(this.getContadorPedido().toString()) -1;
     this.db.collection('pedidos').doc(codigo.toString()).update({
       latitudCliente : lat,
       longitudCliente : long,
-      sucursalAsignada : this.asignacionSucursal(this.sucursales, lat, long)
+      sucursalAsignada : direccion
     })
   }
 
@@ -187,7 +188,7 @@ getSucursales(){
     {
      this.sucursales = sucursales;
      console.log('ubicaciones de las sucursales: ', sucursales); 
-    // console.log(this.asignacionSucursal(sucursales, 1,1));
+    console.log(this.asignacionSucursal(sucursales, -17.3921318,-66.2234896));
      
     })
  return this.sucursales;   
