@@ -6,7 +6,7 @@
 
 <ion-content padding color = "primary">
   <div *ngIf="pedido">
-      <ion-card *ngFor="let detalle of pedido.detalles">
+      <ion-card *ngFor="let detalle of pedido.detalles" color="secondary">
         <ion-card-content>
           {{detalle.cantidad_chacha}}
           {{detalle.nombre_chacha}}
@@ -18,7 +18,7 @@
 
 
 <ion-footer>
-<ion-toolbar color="primary">
+<ion-toolbar color="primary" padding>
     <ion-item color = "primary">
       <ion-text color="light" class="ion-text-center" >
       <h2> Total  Bs. {{precioTotal}}</h2>
