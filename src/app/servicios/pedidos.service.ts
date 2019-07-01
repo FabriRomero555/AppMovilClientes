@@ -41,6 +41,8 @@ export class PedidosService {
   listacontador: AngularFirestoreCollection<any>;
   codigoPedido = [];
   sucursales = [];
+  latitudCli;
+  longitudCli;
   //private ordenesCollection : AngularFirestoreCollection<orden>
   
   constructor(public  db : AngularFirestore) {
@@ -50,10 +52,10 @@ export class PedidosService {
 
   RegistrarPedidoFB(telefono: string ,nombre: string) { 
     
-    this.cambiarEstado(this.asignacionMoto(this.motosUbicaciones));
+   // this.cambiarEstado(this.asignacionMoto(this.motosUbicaciones));
     return new Promise((resolve, reject) => {  
       this.db.collection('pedidos').doc(this.getContadorPedido().toString()).set({
-        UIDMoto: this.asignacionMoto(this.motosUbicaciones),
+        UIDMoto: '_',//this.asignacionMoto(this.motosUbicaciones),
         sucursalAsignada: '-',
         codigoPedido:this.getContadorPedido(),
         latitudCliente : '00.00',
@@ -140,6 +142,11 @@ export class PedidosService {
     this.db.collection('motoTaxis').doc(uid).update({
      enPedido: true
     })
+
+    var codigo = parseInt(this.getContadorPedido().toString()) -1;
+    this.db.collection('pedidos').doc(codigo.toString()).update({
+     UIDMoto: uid
+    })
   }
   actualizarContador(){
     const increment = firestore.FieldValue.increment(1);
@@ -165,7 +172,7 @@ export class PedidosService {
       {
        this.motosUbicaciones = ubicaciones;
        console.log('ubicaciones de los conductores: ', ubicaciones); 
-       console.log(this.asignacionMoto(ubicaciones));
+      // console.log(this.asignacionMoto(ubicaciones));
        
       })
    return this.ubicaciones;   
@@ -188,14 +195,14 @@ getSucursales(){
     {
      this.sucursales = sucursales;
      console.log('ubicaciones de las sucursales: ', sucursales); 
-    console.log(this.asignacionSucursal(sucursales, -17.3921318,-66.2234896));
+    //console.log(this.asignacionSucursal(sucursales, -17.3921318,-66.2234896));
      
     })
  return this.sucursales;   
 }
-  asignacionMoto(ubicaciones){
+  asignacionMoto(ubicaciones, lat, lng){
     let motosDistancias = [];
-    let sucursal = new google.maps.LatLng(-17.3921318,-66.2234896);
+    let sucursal = new google.maps.LatLng(lat, lng);
     for (let loc of ubicaciones){
       
       if(loc.latitud != null && loc.disponible === true && loc.enPedido === false){ 
@@ -244,6 +251,10 @@ getSucursales(){
           if( total === min){
             sucursal = 'La sucursal que se le asigno es la '+loc.nombre_sucursal+ ' ubicada en '+ loc.direccion_sucursal;
             temp = loc.nombre_sucursal+ ' ubicada en la '+ loc.direccion_sucursal;
+            //this.cambiarUIDpedido(this.asignacionMoto(this.motosUbicaciones, loc.latitud, loc.longitud));
+            this.asignacionMoto(this.motosUbicaciones, loc.latitud, loc.longitud);
+           this.cambiarEstado(this.asignacionMoto(this.motosUbicaciones, loc.latitud, loc.longitud));
+          
           }
         }   
       } 

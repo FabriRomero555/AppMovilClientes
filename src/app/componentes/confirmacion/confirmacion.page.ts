@@ -24,6 +24,7 @@ export class ConfirmacionPage implements OnInit {
     public pedidosService : PedidosService,
     private geolocation : Geolocation) {
       this.pedidosService.getSucursales();
+      this.pedidosService.getMotos();
      }
 
   ngOnInit() {
