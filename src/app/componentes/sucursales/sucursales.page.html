@@ -1,9 +1,9 @@
 <ion-header>
   <ion-toolbar color = "secondary">
-    <ion-button color = "dark" fill = "clear" slot="start" (click) = 'VolverHome()'>
+    <ion-button color = "light" fill = "clear" slot="start" (click) = 'VolverHome()'>
       <ion-icon name="arrow-round-back" size="large"  ></ion-icon>
     </ion-button>
-    <ion-title ion-text color="dark">Sucursales</ion-title>
+    <ion-title ion-text color="light">Sucursales</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -11,7 +11,7 @@
 <ion-content padding color="primary">
 
   <ion-list>
-  <ion-item *ngFor ="let sucursal of listaSuc" (click) = "MasInformacion(sucursal)">
+  <ion-item *ngFor ="let sucursal of listaSuc" (click) = "MasInformacion(sucursal)" color = "primary">
     <ion-icon name="pin" color= "warning" slot = "start" size = "large"></ion-icon>
       <ion-label>
        <h2> <b>{{sucursal.nombre_sucursal}}</b></h2>

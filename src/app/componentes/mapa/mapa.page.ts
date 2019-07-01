@@ -1,5 +1,6 @@
 import { AfterContentInit, Component, OnInit, ViewChild } from '@angular/core';
 import { SucursalesService,sucursal} from 'src/app/servicios/sucursales.service';
+import { Router } from '@angular/router';
 
 import {Geolocation} from '@ionic-native/geolocation/ngx';
 declare var google;
@@ -16,7 +17,7 @@ export class MapaPage implements OnInit, AfterContentInit  {
   listaSuc : any =[];
 
   @ViewChild('mapElement') mapElement;
-  constructor(public SucursalesService:SucursalesService,public geolocation: Geolocation) { }
+  constructor(public router: Router, public SucursalesService:SucursalesService,public geolocation: Geolocation) { }
 
   ngOnInit() {
 
@@ -85,5 +86,9 @@ AddMarker(listaSuc)
     
   }
 
+}
+
+VolverListaSucursales(){
+  this.router.navigate(['/sucursales']);
 }
 }

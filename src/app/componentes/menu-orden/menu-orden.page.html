@@ -1,14 +1,14 @@
 <ion-header>
   <ion-toolbar color = "secondary">
-      <ion-button fill = "clear" slot="start" (click) = 'VolverHome()'>
+      <ion-button fill = "clear" slot="start" (click) = 'VolverHome()' color = "light">
           <ion-icon name="arrow-round-back" size="large"  ></ion-icon>
         </ion-button>
-    <ion-title ion-text color="dark">Menu</ion-title>
+    <ion-title ion-text color="light">Menu</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding color="primary">
-  <ion-item *ngFor = "let chacha of chachaslist" (click)='SeleccionarChachaPedido(chacha)'>
+  <ion-item *ngFor = "let chacha of chachaslist" (click)='SeleccionarChachaPedido(chacha)' color="primary">
     <ion-avatar slot ="start">
       <ion-img [src]="chacha.img"></ion-img>
     </ion-avatar>
