@@ -11,14 +11,17 @@ export interface chacha {
   img : string
   precio_chacha : number
 }
+export interface contador {
+  codigo :number
+}
 @Injectable({
   providedIn: 'root'
 })
 export class ChachasService {
-  contador: Observable<any>;
-  listaContador: AngularFirestoreCollection<any>;
-  //public codigo: number;
-  constructor(private db :AngularFirestore) { }
+
+  constructor(private db :AngularFirestore) {
+    
+   }
 
   public getChachas(){
     return this.db.collection('chachas').snapshotChanges().pipe(map(chachastipos =>{
@@ -29,31 +32,11 @@ export class ChachasService {
       })
     }))
   }
-  public getContadorPedido(){
-    this.listaContador = this.db.collection('contadorPedido');
-    let codigo;
-    //Cargando datos de firebase
-      this.contador = this.listaContador.snapshotChanges().pipe(
-        map(actions => 
-          actions.map(a => {
-            codigo = a.payload.doc.data().contador;
-            const data = codigo;
-            const id =  a.payload.doc.id;
-            return { data };
-          })
-        )
-      );
-      
-    //Actualizando mapa
-    this.contador.subscribe(ubicaciones =>
-      {
-       console.log('ubicaciones de los conductores: ', ubicaciones);
-
-      })
-      return codigo;
-  }
+  
   getChachaRooms(){
 
     return this.db.collection('chachaRooms').snapshotChanges()
   }
+
+
 }

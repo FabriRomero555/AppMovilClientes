@@ -15,7 +15,7 @@ import { ChachasService } from "../../servicios/chachas.service"
 export class OrdenarPage implements OnInit  {
   
   public chachaslist:any=[];
-  private cod : string;
+  private cod ;
   private referencia : string;
   private telefono : string;
   //public orden : orden
@@ -26,7 +26,9 @@ export class OrdenarPage implements OnInit  {
      public router : Router,
      public pedidoService:PedidosService,
      private modal : ModalController) {
-       console.log('contador: '+ this.codigo.getContadorPedido())
+     this.cod =  this.pedidoService.getContadorPedido()
+     console.log("log: "+ this.cod)
+     this.pedidoService.getMotos();
      }
  
   ngOnInit() {
