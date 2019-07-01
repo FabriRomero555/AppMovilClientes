@@ -32,7 +32,7 @@ export class ConfirmacionPage implements OnInit {
   }
 
   TerminarOrden(){
-      this.pedidosService.SetDireccionPedidoFB('RPHJc7z7EfRywvYsmlZH', this.callePrincipal, this.calleAux1, this.calleAux2, this.referenciaCasa, this.numeroCasa)
+      this.pedidosService.SetDireccionPedidoFB(this.callePrincipal, this.calleAux1, this.calleAux2, this.referenciaCasa, this.numeroCasa)
       this.router.navigate(['/final']);
   }
 
@@ -46,7 +46,7 @@ export class ConfirmacionPage implements OnInit {
       console.log(this.latitud_cliente);
       console.log(this.longitud_cliente);
 
-      this.pedidosService.SetCordenadasClienteFB('RPHJc7z7EfRywvYsmlZH',this.latitud_cliente,this.longitud_cliente)
+      this.pedidosService.SetCordenadasClienteFB(this.latitud_cliente,this.longitud_cliente)
 
      }).catch((error) => {
        console.log('Error getting location', error);

@@ -83,10 +83,11 @@ export class PedidosService {
 
   }
 
-  SetDireccionPedidoFB(pedido_id : string, callePrincipal : string , calleAux1 : string , calleAux2 : string, referenciaCasa : string,
+  SetDireccionPedidoFB(callePrincipal : string , calleAux1 : string , calleAux2 : string, referenciaCasa : string,
     numeroCasa : string)
   {
-    this.db.collection('pedidos').doc(pedido_id).update({
+    var codigo = parseInt(this.getContadorPedido().toString()) -1;
+    this.db.collection('pedidos').doc(codigo.toString()).update({
       callePrincipal : callePrincipal,
       calleAux1 : calleAux1,
       calleAux2 : calleAux2,
@@ -98,27 +99,31 @@ export class PedidosService {
   /*GetPedidoFB( pedido_id : string){
     return this.db.collection('pedidos').doc(pedido_id).valueChanges()}*/
 
-  SetPrecioDetalleFB(pedido_id : string, precio_detalle : number){
-    this.db.collection('pedidos').doc(pedido_id).update({
+  SetPrecioDetalleFB(precio_detalle : number){
+    var codigo = parseInt(this.getContadorPedido().toString()) -1;
+    this.db.collection('pedidos').doc(codigo.toString()).update({
       precio_pedido : precio_detalle
     })
   }
 
-  SetCordenadasClienteFB(pedido_id : string, lat : number , long : number){
-    this.db.collection('pedidos').doc(pedido_id).update({
+  SetCordenadasClienteFB(lat : number , long : number){
+    var codigo = parseInt(this.getContadorPedido().toString()) -1;
+    this.db.collection('pedidos').doc(codigo.toString()).update({
       latitudCliente : lat,
       longitudCliente : long,
     })
   }
 
-  SetPrecioPedidoFB(pedido_id : string , precio_acumulado : number){
-    this.db.collection('pedidos').doc(pedido_id).update({
+  SetPrecioPedidoFB(precio_acumulado : number){
+    var codigo = parseInt(this.getContadorPedido().toString()) -1;
+    this.db.collection('pedidos').doc(codigo.toString()).update({
       precio_pedido : precio_acumulado,
     })
   }
 
-  GetPedidoFB(pedido_id: string) {
-    return this.db.collection('pedidos').doc(pedido_id).snapshotChanges().pipe(map(pedidos => {
+  GetPedidoFB() {
+    var codigo = parseInt(this.getContadorPedido().toString()) -1;
+    return this.db.collection('pedidos').doc(codigo.toString()).snapshotChanges().pipe(map(pedidos => {
       const data = pedidos.payload.data() as pedido;
       data.id = pedidos.payload.id;
       return data;
