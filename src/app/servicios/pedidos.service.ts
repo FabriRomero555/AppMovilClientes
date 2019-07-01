@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 import { unescapeIdentifier } from '@angular/compiler';
 import { firestore } from 'firebase';
 import { detalle } from "../modelos/detalle";
-
+declare var google;
 export interface pedido{
     id : string
     UIDMoto: string,
@@ -31,8 +31,13 @@ export interface pedido{
 })
 export class PedidosService {
   public detalles = []
-
+  ubicaciones: Observable<any>;
+  listaUbicaciones: AngularFirestoreCollection<any>;
+  motosUbicaciones = [];
   fecha : Date = new Date();
+  contador: Observable<any>;
+  listacontador: AngularFirestoreCollection<any>;
+  codigoPedido = [];
 
   //private ordenesCollection : AngularFirestoreCollection<orden>
   
@@ -41,9 +46,12 @@ export class PedidosService {
    }
 
   RegistrarPedidoFB(telefono: string ,nombre: string) { 
+    
+    this.cambiarEstado(this.asignacionMoto(this.motosUbicaciones));
     return new Promise((resolve, reject) => {  
-      this.db.collection('pedidos').add({
-        UIDMoto: 'motoid',
+      this.db.collection('pedidos').doc(this.getContadorPedido().toString()).set({
+        UIDMoto: this.asignacionMoto(this.motosUbicaciones),
+        codigoPedido:this.getContadorPedido(),
         latitudCliente : '00.00',
         longitudCliente : '00.00',
         nombreCliente: nombre,
@@ -58,24 +66,28 @@ export class PedidosService {
         calleAux1 : '-',
         calleAux2 : '-'
 
-      }).catch(err => reject(err));        
+      }).catch(err => reject(err));   
+      this.actualizarContador();     
     });
+   
   }
   
 
 
-  EnviarDetalleaFB(detalle : detalle , pedido_id : string){
-      this.db.collection('pedidos').doc(pedido_id).update({
+  EnviarDetalleaFB(detalle : detalle ){
+    var codigo = parseInt(this.getContadorPedido().toString()) -1;
+      this.db.collection('pedidos').doc(codigo.toString()).update({
       detalles : firestore.FieldValue.arrayUnion(detalle),
       //precio_pedido : precio_pedido //aun no funciona precio de pedido
     })
 
   }
 
-  SetDireccionPedidoFB(pedido_id : string, callePrincipal : string , calleAux1 : string , calleAux2 : string, referenciaCasa : string,
+  SetDireccionPedidoFB(callePrincipal : string , calleAux1 : string , calleAux2 : string, referenciaCasa : string,
     numeroCasa : string)
   {
-    this.db.collection('pedidos').doc(pedido_id).update({
+    var codigo = parseInt(this.getContadorPedido().toString()) -1;
+    this.db.collection('pedidos').doc(codigo.toString()).update({
       callePrincipal : callePrincipal,
       calleAux1 : calleAux1,
       calleAux2 : calleAux2,
@@ -87,32 +99,128 @@ export class PedidosService {
   /*GetPedidoFB( pedido_id : string){
     return this.db.collection('pedidos').doc(pedido_id).valueChanges()}*/
 
-  SetPrecioDetalleFB(pedido_id : string, precio_detalle : number){
-    this.db.collection('pedidos').doc(pedido_id).update({
+  SetPrecioDetalleFB(precio_detalle : number){
+    var codigo = parseInt(this.getContadorPedido().toString()) -1;
+    this.db.collection('pedidos').doc(codigo.toString()).update({
       precio_pedido : precio_detalle
     })
   }
 
-  SetCordenadasClienteFB(pedido_id : string, lat : number , long : number){
-    this.db.collection('pedidos').doc(pedido_id).update({
+  SetCordenadasClienteFB(lat : number , long : number){
+    var codigo = parseInt(this.getContadorPedido().toString()) -1;
+    this.db.collection('pedidos').doc(codigo.toString()).update({
       latitudCliente : lat,
       longitudCliente : long,
     })
   }
 
-  SetPrecioPedidoFB(pedido_id : string , precio_acumulado : number){
-    this.db.collection('pedidos').doc(pedido_id).update({
+  SetPrecioPedidoFB(precio_acumulado : number){
+    var codigo = parseInt(this.getContadorPedido().toString()) -1;
+    this.db.collection('pedidos').doc(codigo.toString()).update({
       precio_pedido : precio_acumulado,
     })
   }
 
-  GetPedidoFB(pedido_id: string) {
-    return this.db.collection('pedidos').doc(pedido_id).snapshotChanges().pipe(map(pedidos => {
+  GetPedidoFB() {
+    var codigo = parseInt(this.getContadorPedido().toString()) -1;
+    return this.db.collection('pedidos').doc(codigo.toString()).snapshotChanges().pipe(map(pedidos => {
       const data = pedidos.payload.data() as pedido;
       data.id = pedidos.payload.id;
       return data;
       
     }))   
   }
+  cambiarEstado(uid){
+    this.db.collection('motoTaxis').doc(uid).update({
+     enPedido: true
+    })
+  }
+  actualizarContador(){
+    const increment = firestore.FieldValue.increment(1);
+    this.db.collection('contadorPedido').doc('contador').update({
+     contador: increment
+    })
+  }
+  getMotos(){
+    
+    this.listaUbicaciones = this.db.collection('motoTaxis');
 
+    //Cargando datos de firebase
+      this.ubicaciones = this.listaUbicaciones.snapshotChanges().pipe(
+        map(actions => 
+          actions.map(a => {
+            const data = a.payload.doc.data();
+            const id =  a.payload.doc.id;
+            return { id, ...data };
+          })
+        )
+      );
+    this.ubicaciones.subscribe(ubicaciones =>
+      {
+       this.motosUbicaciones = ubicaciones;
+       console.log('ubicaciones de los conductores: ', ubicaciones); 
+       console.log(this.asignacionMoto(ubicaciones));
+       
+      })
+   return this.ubicaciones;   
+}
+  asignacionMoto(ubicaciones){
+    let motosDistancias = [];
+    let sucursal = new google.maps.LatLng(-17.3921318,-66.2234896);
+    for (let loc of ubicaciones){
+      
+      if(loc.latitud != null && loc.disponible === true && loc.enPedido === false){ 
+        let latLng = new google.maps.LatLng(loc.latitud, loc.longitud); 
+        let total = google.maps.geometry.spherical.computeDistanceBetween(latLng, sucursal); 
+        console.log('La distancia del conductor '+loc.apellidoMotoTaxi + ' '+ loc.uid +' es '+ total + ' metros');
+        motosDistancias.push(total);
+      }   
+    } 
+    var moto: string;
+    var min=Math.min.apply(null, motosDistancias);
+    for (let loc of ubicaciones){
+      
+      if(loc.latitud != null && loc.disponible === true){
+        let latLng = new google.maps.LatLng(loc.latitud, loc.longitud); 
+        let total = google.maps.geometry.spherical.computeDistanceBetween(latLng, sucursal);
+        if( total === min){
+          moto = loc.uid;
+        }
+      }   
+    } 
+    
+    console.log('La menor distancia es '+ min +' de '+ moto);     
+    return moto;
+    } 
+    public getContadorPedido(){
+    
+      this.listacontador = this.db.collection('contadorPedido');
+  
+        //Cargando datos de firebase
+          this.contador = this.listacontador.snapshotChanges().pipe(
+            map(actions => 
+              actions.map(a => {
+                const data = a.payload.doc.data();
+                const id =  a.payload.doc.id;
+                return { id, ...data };
+              })
+            )
+          );
+  
+          this.contador.subscribe(counter =>
+            {
+            this.codigoPedido = counter[0].contador;
+             console.log('contador: ', this.codigoPedido);
+             console.log('DATO: ' + this.getDato(counter));
+  
+            })
+            return this.codigoPedido;
+    }
+    getDato(ubicaciones){
+      var codigo = null;
+     
+         codigo = ubicaciones[0].contador; 
+       
+       return codigo
+     } 
 }
