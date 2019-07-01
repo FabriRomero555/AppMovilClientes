@@ -21,7 +21,7 @@ export class PedidoPage implements OnInit {
 
   ngOnInit() {
 
-    this.pedidosService.GetPedidoFB('RPHJc7z7EfRywvYsmlZH').subscribe( pedido => {
+    this.pedidosService.GetPedidoFB().subscribe( pedido => {
       //console.log(pedido);
       this.pedido = pedido; 
       this.precioTotal = this.pedido.precio_pedido;

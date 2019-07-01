@@ -29,6 +29,7 @@ export class OrdenarPage implements OnInit  {
      this.cod =  this.pedidoService.getContadorPedido()
      console.log("log: "+ this.cod)
      this.pedidoService.getMotos();
+     
      }
  
   ngOnInit() {

@@ -32,17 +32,20 @@ export interface pedido{
 export class PedidosService {
   public detalles = []
   ubicaciones: Observable<any>;
+  sucursalesChachas: Observable<any>;
   listaUbicaciones: AngularFirestoreCollection<any>;
+  listaSucursales: AngularFirestoreCollection<any>;
   motosUbicaciones = [];
   fecha : Date = new Date();
   contador: Observable<any>;
   listacontador: AngularFirestoreCollection<any>;
   codigoPedido = [];
-
+  sucursales = [];
   //private ordenesCollection : AngularFirestoreCollection<orden>
   
   constructor(public  db : AngularFirestore) {
     //this.ordenesCollection = db.collection<orden>('pedidos')
+    //this.getSucursales();
    }
 
   RegistrarPedidoFB(telefono: string ,nombre: string) { 
@@ -51,6 +54,7 @@ export class PedidosService {
     return new Promise((resolve, reject) => {  
       this.db.collection('pedidos').doc(this.getContadorPedido().toString()).set({
         UIDMoto: this.asignacionMoto(this.motosUbicaciones),
+        sucursalAsignada: '-',
         codigoPedido:this.getContadorPedido(),
         latitudCliente : '00.00',
         longitudCliente : '00.00',
@@ -111,6 +115,7 @@ export class PedidosService {
     this.db.collection('pedidos').doc(codigo.toString()).update({
       latitudCliente : lat,
       longitudCliente : long,
+      sucursalAsignada : this.asignacionSucursal(this.sucursales, lat, long)
     })
   }
 
@@ -164,6 +169,29 @@ export class PedidosService {
       })
    return this.ubicaciones;   
 }
+getSucursales(){
+    
+  this.listaSucursales = this.db.collection('sucursales');
+
+  //Cargando datos de firebase
+    this.sucursalesChachas = this.listaSucursales.snapshotChanges().pipe(
+      map(actions => 
+        actions.map(a => {
+          const data = a.payload.doc.data();
+          const id =  a.payload.doc.id;
+          return { id, ...data };
+        })
+      )
+    );
+  this.sucursalesChachas.subscribe(sucursales =>
+    {
+     this.sucursales = sucursales;
+     console.log('ubicaciones de las sucursales: ', sucursales); 
+    // console.log(this.asignacionSucursal(sucursales, 1,1));
+     
+    })
+ return this.sucursales;   
+}
   asignacionMoto(ubicaciones){
     let motosDistancias = [];
     let sucursal = new google.maps.LatLng(-17.3921318,-66.2234896);
@@ -192,6 +220,36 @@ export class PedidosService {
     console.log('La menor distancia es '+ min +' de '+ moto);     
     return moto;
     } 
+    asignacionSucursal(sucursales, lat, lng){
+      let sucursalesDistancias = [];
+      let pedido = new google.maps.LatLng(lat,lng);
+      for (let loc of sucursales){
+        
+        if(loc.latitud != null){ 
+          let latLng = new google.maps.LatLng(loc.latitud, loc.longitud); 
+          let total = google.maps.geometry.spherical.computeDistanceBetween(latLng, pedido); 
+          console.log('La distacia de la '+loc.nombre_sucursal+' ubicada en la '+ loc.direccion_sucursal + ' es de ' + total+' metros.');
+          sucursalesDistancias.push(total);
+        }   
+      } 
+      var sucursal = null;
+      var temp = null;
+      var min=Math.min.apply(null, sucursalesDistancias);
+      for (let loc of sucursales){
+        
+        if(loc.latitud != null){
+          let latLng = new google.maps.LatLng(loc.latitud, loc.longitud); 
+          let total = google.maps.geometry.spherical.computeDistanceBetween(latLng, pedido);
+          if( total === min){
+            sucursal = 'La sucursal que se le asigno es la '+loc.nombre_sucursal+ ' ubicada en '+ loc.direccion_sucursal;
+            temp = loc.nombre_sucursal+ ' ubicada en la '+ loc.direccion_sucursal;
+          }
+        }   
+      } 
+      
+      console.log('La menor distancia es '+ min +' de la sucursal de '+ temp);     
+      return sucursal;
+      } 
     public getContadorPedido(){
     
       this.listacontador = this.db.collection('contadorPedido');

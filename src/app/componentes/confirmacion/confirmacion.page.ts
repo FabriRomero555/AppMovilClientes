@@ -22,7 +22,9 @@ export class ConfirmacionPage implements OnInit {
 
   constructor(public router : Router,
     public pedidosService : PedidosService,
-    private geolocation : Geolocation) { }
+    private geolocation : Geolocation) {
+      this.pedidosService.getSucursales();
+     }
 
   ngOnInit() {
   }
