@@ -2,7 +2,7 @@
   <ion-toolbar color = "primary">
       <ion-button color = "light" fill = "clear" slot="start" (click) = 'VolverAPedido()'>
           <ion-icon name="arrow-round-back" size="large"  ></ion-icon>
-        </ion-button>
+      </ion-button>
     <ion-title >
       Dirección de Entrega
     </ion-title>
@@ -11,34 +11,34 @@
 
 <ion-content padding color = "secondary">
   <ion-list>
-      <ion-item>
-          <ion-icon name="locate" item-start></ion-icon>
-          <ion-label stacked>Calle o Avenida:</ion-label>
+      <ion-item color = "secondary">
+          <ion-icon name="locate" item-start color = "light"></ion-icon>
+          <ion-label stacked color = "light">Calle o Avenida:</ion-label>
           <ion-input type="text"
            placeholder="Calle Principal"
            [(ngModel)]="callePrincipal"
            required></ion-input>
       </ion-item>
-      <ion-item>
-          <ion-icon name="grid" item-start></ion-icon>
-          <ion-label>   Número Dom.:</ion-label>
+      <ion-item color = "secondary">
+          <ion-icon name="grid" item-start color = "light"></ion-icon>
+          <ion-label color = "light">   Número Dom.:</ion-label>
           <ion-input type="tel" placeholder="4070" [(ngModel)]="numeroCasa" required></ion-input>
-      </ion-item>
-        <ion-item>
-          <ion-icon name="map" item-start></ion-icon>
-          <ion-label>   Referencia:</ion-label>
+      </ion-item >
+      <ion-item color = "secondary">
+          <ion-icon name="map" item-start color = "light"></ion-icon>
+          <ion-label color = "light" stacked>   Referencia:</ion-label>
           <ion-input type="text" placeholder="Puerta Roja, Edificio, Esquina" [(ngModel)]="referenciaCasa" required></ion-input>
-      </ion-item>
-        <ion-item >
-            <ion-icon name="pin" item-start></ion-icon>
-            <ion-label stacked>Calle Auxiliar 1:</ion-label>
+      </ion-item >
+      <ion-item color = "secondary">
+            <ion-icon name="pin" item-start color = "light"></ion-icon>
+            <ion-label stacked color = "light">Calle Auxiliar 1:</ion-label>
             <ion-input type="text" placeholder="Calle Auxiliar" [(ngModel)]="calleAux1" requirerd></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-icon name="pin" item-start></ion-icon>
-            <ion-label stacked>Calle Auxiliar 2:</ion-label>
+      </ion-item >
+      <ion-item color = "secondary">
+            <ion-icon name="pin" item-start color = "light"></ion-icon>
+            <ion-label stacked color = "light">Calle Auxiliar 2:</ion-label>
             <ion-input type="text" placeholder="Calle Auxiliar 2" [(ngModel)]="calleAux2" required></ion-input>
-          </ion-item>
+      </ion-item>
           
   </ion-list>
   
@@ -46,8 +46,8 @@
      
 </ion-content>
 
-<ion-footer>
-  <ion-toolbar>
+<ion-footer >
+  <ion-toolbar color = "secondary">
       <ion-button expand="block" (click) ="TerminarOrden()">Finalizar Pedido</ion-button>
   </ion-toolbar>
 </ion-footer>
