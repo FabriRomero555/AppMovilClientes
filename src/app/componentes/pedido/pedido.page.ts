@@ -25,7 +25,7 @@ export class PedidoPage implements OnInit {
       //console.log(pedido);
       this.pedido = pedido; 
       this.precioTotal = this.pedido.precio_pedido;
-
+    console.log(pedido);
     console.log(pedido.precio_pedido)
     console.log(this.precioTotal)
 })
