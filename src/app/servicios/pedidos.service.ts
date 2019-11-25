@@ -113,7 +113,7 @@ export class PedidosService {
   }
 
   SetCordenadasClienteFB(lat : number , long : number){
-    var direccion = this.asignacionSucursal(this.sucursales, lat, long)
+    var direccion = this.asignacionSucursal(this.sucursales, -16.5103074,-68.1290117)
     var codigo = parseInt(this.getContadorPedido().toString()) -1;
     this.db.collection('pedidos').doc(codigo.toString()).update({
       latitudCliente : lat,
